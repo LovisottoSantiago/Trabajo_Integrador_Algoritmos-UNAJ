@@ -1,0 +1,5 @@
+C:\Users\Lovidev\Documents\GitHub\Trabajo_Integrador_Algoritmos-UNAJ\TrabajoIntegrador\Integrador\obj\Debug\Integrador.csprojResolveAssemblyReference.cache
+C:\Users\Lovidev\Documents\GitHub\Trabajo_Integrador_Algoritmos-UNAJ\TrabajoIntegrador\Integrador\bin\Debug\Integrador.exe
+C:\Users\Lovidev\Documents\GitHub\Trabajo_Integrador_Algoritmos-UNAJ\TrabajoIntegrador\Integrador\bin\Debug\Integrador.pdb
+C:\Users\Lovidev\Documents\GitHub\Trabajo_Integrador_Algoritmos-UNAJ\TrabajoIntegrador\Integrador\obj\Debug\Integrador.exe
+C:\Users\Lovidev\Documents\GitHub\Trabajo_Integrador_Algoritmos-UNAJ\TrabajoIntegrador\Integrador\obj\Debug\Integrador.pdb
