@@ -26,11 +26,14 @@ namespace Integrador
 		
 		
 		//METODOS
+		
+		// METODO PARA AGREGAR UN OBRERO
 		public void agregarObrero(obrero x){ //Agrega a un Obrero creado previamente.
 			listaObreros.Add(x);
 		}
 		
 		
+		// METODO PARA ELIMINAR UN OBRERO
 		public void eliminarObrero(int legajo){		
 			foreach (obrero x in listaObreros){ //Recorro todos los obreros de la lista
 			    if (x._legajo == legajo){
@@ -44,6 +47,7 @@ namespace Integrador
 		}
 		
 		
+		// METODO PARA VISUALIZAR UN OBRERO
 		public void visualizarObrero(int legajo){
 			foreach (obrero z in listaObreros) { //Recorro todos los obreros de la lista
 				if (z._legajo == legajo){
@@ -58,14 +62,17 @@ namespace Integrador
 			}
 			Console.WriteLine("No se encontró ningun obrero con el legajo " + legajo + ".");
 		}
-			
+		
+		// METODO PARA VER LA CANTIDAD DE OBREROS	
 		public void cantidadObreros(){
 			Console.WriteLine("La cantidad de obreros es: " + listaObreros.Count);
 		}		
 		
+		
+		// METODO PARA VER TODA LA LISTA DE OBREROS
 		public void verObreros(){
 			foreach (obrero x in listaObreros) {
-				Console.WriteLine(x._nombre + ", " + x._legajo + ".");
+				Console.WriteLine(x._nombre + ", legajo: " + x._legajo + ".");
 			}	
 		}
 		

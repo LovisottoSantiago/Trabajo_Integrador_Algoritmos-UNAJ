@@ -45,9 +45,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="empresa.cs" />
     <Compile Include="grupoObreros.cs" />
     <Compile Include="jefeObra.cs" />
     <Compile Include="misExcepciones.cs" />
+    <Compile Include="obra.cs" />
     <Compile Include="obrero.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

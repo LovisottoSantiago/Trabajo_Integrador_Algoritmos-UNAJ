@@ -9,7 +9,7 @@ namespace Integrador
 		private double bonificacion;
 		private grupoObreros[] jefeGrupoAsignado;
 		
-		public jefeObra(string nombre, string apellido, string dni, int legajo, double sueldo, string cargo, double bonificacion, grupoObreros[] jefeGrupoAsignado):base(nombre, apellido, dni, legajo, sueldo, cargo)
+		public jefeObra(string nombre, string apellido, string dni, int legajo, double sueldo, string cargo, double bonificacion):base(nombre, apellido, dni, legajo, sueldo, cargo)
 		{
 			this.nombre = nombre;
 			this.apellido = apellido;
@@ -21,6 +21,7 @@ namespace Integrador
 			this.jefeGrupoAsignado = new grupoObreros[1];
 		}
 		
+		
 		public double _bonificacion {
 			get {return bonificacion;}
 			set {bonificacion = value;}
@@ -30,6 +31,15 @@ namespace Integrador
 			get {return jefeGrupoAsignado;}
 			set {jefeGrupoAsignado = value;}
 		}
+		
+						
+		public void asignarGrupo(grupoObreros grupoAsignado){
+			jefeGrupoAsignado[0] = (grupoAsignado);
+		}
+				
+		
+		
+		
 		
 	}
 }
