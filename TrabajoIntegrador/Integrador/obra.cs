@@ -63,6 +63,13 @@ namespace Integrador
 			nombreJefe = jefe._nombre;
 		}
 		
+		// OJOOO
+		public void asignarGrupo(grupoObreros grupo){
+			grupo._codigoGrupo = _codigoInterno;
+		}
+		
+		
+		
 		public void verJefeAsignado(){
 			Console.WriteLine(nombreJefe);
 		}

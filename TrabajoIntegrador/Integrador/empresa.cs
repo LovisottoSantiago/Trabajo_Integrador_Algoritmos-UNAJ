@@ -36,11 +36,12 @@ namespace Integrador
 			empresaGrupoAsignado.Add(grupoAsignado);
 		}
 		
+		// CONTRATAR OBRERO
 		
 		public void contratarObrero(){
 			Console.Write("Ingrese el nombre: ");
 	        string nombre = Console.ReadLine();
-	
+
 	        Console.Write("Ingrese el apellido: ");
 	        string apellido = Console.ReadLine();
 	
@@ -49,6 +50,14 @@ namespace Integrador
 	
 	        Console.Write("Ingrese el legajo: ");
 	        int legajo = Convert.ToInt32(Console.ReadLine());
+	        
+	        
+	        foreach (grupoObreros y in _empresaGrupoAsignado) {
+					if (y.verificarLegajo(legajo) == false) {
+						return;
+					}
+	        	}
+	        
 	
 	        Console.Write("Ingrese el sueldo: ");
 	        double sueldo = Convert.ToDouble(Console.ReadLine());
@@ -57,64 +66,60 @@ namespace Integrador
 	        string cargo = Console.ReadLine();
 	        
 	        obrero obreroContratado = new obrero(nombre, apellido, dni, legajo, sueldo, cargo);
-		}
-		
-		
-		public void despedirObrero(){
-			// Me muestra las obras en ejecucion
-			foreach (obra x in obrasEnEjecucion) {
-				Console.WriteLine("Codigo interno de la obra es de: " + x._codigoInterno);
+	        
+			//Me muestra las obras en ejecucion
+			foreach (obra x in _obrasEnEjecucion) {
+				Console.WriteLine("Codigo interno de la obra es de: " + x._codigoInterno + ", " + x._tipoObra + ".");
 			}
-	
-			try {
-				Console.Write("Elegir obra [codigo de obra]: ");
-				int preguntaCodigo = Convert.ToInt32(Console.ReadLine());						
+			
+			Console.Write("Ingresar codigo: "); 
+			int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());
+
+				foreach (grupoObreros y in _empresaGrupoAsignado) {
 				
-				// Entrar en la obra especifica
-				foreach (obra y in _obrasEnEjecucion) {
-					if (preguntaCodigo == y._codigoInterno){
-						Console.WriteLine("entraste");
-						
-						// Me muestra todos los obreros
-						Console.WriteLine("Has seleccionado la obra con código: " + y._codigoInterno);
-                    	foreach (grupoObreros gr in _empresaGrupoAsignado) {
-							Console.WriteLine("El codigo del grupo es de: " + gr._codigoObra);
-                    	}
-						
-						Console.Write("Ingresar codigo del grupo: ");
-						int preguntaCodigoGrupo = Convert.ToInt32(Console.ReadLine());
-						
-						
-						// Entrar en el grupo especifico y mostrar Obreros
-						foreach (grupoObreros gr in _empresaGrupoAsignado) {
-							if (preguntaCodigoGrupo == gr._codigoObra){
-								Console.WriteLine("Seleccionaste al grupo: " + gr._codigoObra);
-								gr.verObreros();
-							}
-						}
-						
-						foreach (grupoObreros gr in _empresaGrupoAsignado) {
-							Console.Write("Ingresar legajo del obrero: ");
-							int preguntaLegajoObrero = Convert.ToInt32(Console.ReadLine());
-											
-							gr.eliminarObrero(preguntaLegajoObrero);
-								
-							
-						}
-						
-						
+					if (preguntaCodigoInterno == y._codigoGrupo){
+					y.agregarObrero(obreroContratado);
+					Console.WriteLine("Se contrató a " + obreroContratado._apellido + " " + obreroContratado._nombre + ", legajo: " + obreroContratado._legajo + " con éxito.");
+					Console.WriteLine("Formará parte del grupo: " + y._codigoGrupo + ".");
+					return;						
 					}
 				}
-			}
-			catch (FormatException){
-				Console.WriteLine("Porfavor, ingresa un número.");
-			} 
 		}
 		
 		
 		
+		// DESPEDIR OBRERO
 		
+		public void despedirObrero(){
+			//Me muestra las obras en ejecucion
+			foreach (obra x in _obrasEnEjecucion) {
+				Console.WriteLine("Codigo interno de la obra es de: " + x._codigoInterno + ", " + x._tipoObra + ".");
+			}
+			
+			Console.Write("Ingresar codigo: "); 
+			int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());
+
+				foreach (grupoObreros y in _empresaGrupoAsignado) {
+				
+					if (preguntaCodigoInterno == y._codigoGrupo){
+						y.verObreros();
+						
+						Console.Write("Ingresar legajo del obrero a eliminar: ");
+						int inputObreroEliminar = Convert.ToInt32(Console.ReadLine());
+						y.eliminarObrero(inputObreroEliminar);
+						return;						
+					}
+				}
+		}
+
+
+
+		public void verTodosLosObreros(){
+			foreach (grupoObreros x in empresaGrupoAsignado) {
+				x.verObreros();
+			}
+		}
 		
-		
+	
 	}
 }

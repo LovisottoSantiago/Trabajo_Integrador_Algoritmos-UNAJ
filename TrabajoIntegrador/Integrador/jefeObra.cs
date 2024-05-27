@@ -19,7 +19,7 @@ namespace Integrador
 			this.cargo = cargo;
 			this.bonificacion = bonificacion;
 			this.jefeGrupoAsignado = new grupoObreros[1];
-		}
+		}		
 		
 		
 		public double _bonificacion {

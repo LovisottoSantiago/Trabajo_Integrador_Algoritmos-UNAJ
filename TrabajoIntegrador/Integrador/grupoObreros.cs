@@ -5,18 +5,18 @@ namespace Integrador
 {
 	public class grupoObreros
 	{
-		private int codigoObra;
+		private int codigoGrupo;
 		private ArrayList listaObreros;
 			
-		public grupoObreros(int codigoObra)
+		public grupoObreros(int codigoGrupo)
 		{
-			this.codigoObra = codigoObra;
+			this.codigoGrupo = codigoGrupo;
 			listaObreros = new ArrayList();
 		}
 		
-		public int _codigoObra{
-			get {return codigoObra;}
-			set {codigoObra = value;}
+		public int _codigoGrupo{
+			get {return codigoGrupo;}
+			set {codigoGrupo = value;}
 		}
 		
 		public ArrayList _listaObreros{
@@ -72,10 +72,21 @@ namespace Integrador
 		// METODO PARA VER TODA LA LISTA DE OBREROS
 		public void verObreros(){
 			foreach (obrero x in listaObreros) {
-				Console.WriteLine(x._nombre + ", legajo: " + x._legajo + ".");
+				Console.WriteLine(x._apellido + " " + x._nombre + ", legajo: " + x._legajo + ".");
 			}	
 		}
 		
 		
+		// METODO PARA VERIFICAR SI EL LEGAJO ESTÁ DISPONIBLE
+		public bool verificarLegajo(int legajo){
+			foreach (obrero y in listaObreros) {
+				if (y._legajo == legajo){
+					Console.WriteLine("El legajo está ocupado");
+		            return false;
+		        }
+		    }
+		    return true;
+		}
+				
 	}
 }
