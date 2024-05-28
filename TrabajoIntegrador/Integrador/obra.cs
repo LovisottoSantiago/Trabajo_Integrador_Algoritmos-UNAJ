@@ -63,10 +63,11 @@ namespace Integrador
 			nombreJefe = jefe._nombre;
 		}
 		
-		// OJOOO
+		
+		/* OJOOO
 		public void asignarGrupo(grupoObreros grupo){
 			grupo._codigoGrupo = _codigoInterno;
-		}
+		} */
 		
 		
 		

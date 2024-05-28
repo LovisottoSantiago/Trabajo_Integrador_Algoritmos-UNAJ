@@ -7,11 +7,13 @@ namespace Integrador
 	{
 		private int codigoGrupo;
 		private ArrayList listaObreros;
+		private int obraAsignadaGrupo;
 			
 		public grupoObreros(int codigoGrupo)
 		{
 			this.codigoGrupo = codigoGrupo;
 			listaObreros = new ArrayList();
+			this.obraAsignadaGrupo = 0;
 		}
 		
 		public int _codigoGrupo{
@@ -24,6 +26,10 @@ namespace Integrador
 			set {listaObreros = value;}
 		}
 		
+		public int _obraAsignadaGrupo{
+			get {return obraAsignadaGrupo;}
+			set {obraAsignadaGrupo = value;}
+		}
 		
 		//METODOS
 		
@@ -34,9 +40,13 @@ namespace Integrador
 		
 		
 		// METODO PARA ELIMINAR UN OBRERO
-		public void eliminarObrero(int legajo){		
+		public void eliminarObrero(int legajo){	
+		
 			foreach (obrero x in listaObreros){ //Recorro todos los obreros de la lista
-			    if (x._legajo == legajo){
+				if (legajo == 0){ //Si el legajo es 0, que vuelva para atrás
+					return;
+				}
+				else if (x._legajo == legajo){
 			    	listaObreros.Remove(x); //Si el legajo del obrero coincide, se elimina al obrero de la lista
 			        Console.WriteLine("Obrero " + x._nombre + " eliminado correctamente.");
 			        return; // Salir del método después de eliminar al obrero
@@ -87,6 +97,13 @@ namespace Integrador
 		    }
 		    return true;
 		}
+		
+		
+		// METODO PARA ASIGNAR OBRA 
+		public void asignarObra(obra obraParaAsignar){
+			 _obraAsignadaGrupo = obraParaAsignar._codigoInterno;
+		}
+		
 				
 	}
 }

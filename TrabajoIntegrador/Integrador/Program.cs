@@ -55,11 +55,20 @@ namespace Integrador
 			// Creación de 2 obras
 			obra puenteFcioVarela = new obra("Jeremy Jackson", "20.152.912", 555, "Construcción de puente", 10500250);
 			puenteFcioVarela.asignarJefe(jefeRamon);
-			puenteFcioVarela.asignarGrupo(Grupo1235); //OJOO
+			 /* puenteFcioVarela.asignarGrupo(Grupo1235); //OJOO */
+			
 			
 			obra rotonda = new obra("Fabricio Diaz", "35.184.557", 999, "Construcción de rotonda", 2900000);
 			rotonda.asignarJefe(jefeJulio);
-			rotonda.asignarGrupo(Grupo1240); //OJOO
+			/* rotonda.asignarGrupo(Grupo1240); //OJOO */
+			
+			// ASIGNAR OBRA PUENTE AL GRUPO 1235
+			Grupo1235.asignarObra(puenteFcioVarela);
+			
+			
+			// ASIGNAR OBRA ROTONDA AL GRUPO 1235
+			Grupo1240.asignarObra(rotonda);
+			
 			
 			// Obras en ejecucion
 			ArrayList listaObrasEjecucion = new ArrayList();
