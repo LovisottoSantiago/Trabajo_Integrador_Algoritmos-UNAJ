@@ -32,7 +32,7 @@ namespace Integrador
 			obrero Javier = new obrero("Javier", "Martínez", "34.300.200", 0007, 320000, "Albañil");
 			obrero Luis = new obrero("Luis", "Fernández", "41.902.950", 0008, 320000, "Pintor");
 			obrero Carlos = new obrero("Carlos", "López", "45.004.470", 0009, 320000, "Electricista");
-			obrero Manuel = new obrero("Manuel", "Rodríguez", "38.060.150", 0010, 320000, "Plomero");
+			obrero Manuel = new obrero("Manuel", "Rodríguez", "38.060.150", 0099, 320000, "Plomero");
 			
 			// Crear el grupo de obreros 1240
 			grupoObreros Grupo1240 = new grupoObreros(1240);
@@ -44,6 +44,25 @@ namespace Integrador
 			Grupo1240.agregarObrero(Manuel);
 														
 
+			
+			//TERCER GRUPO DE OBREROS (SIN JEFE)
+			obrero Messi = new obrero("Leo", "Messi", "34.000.4400", 0010, 320000, "Carpintero");
+			obrero Mascherano = new obrero("Javier", "Masche", "33.343.200", 0011, 320000, "Albañil");
+			obrero CR7 = new obrero("Cristiano", "Ronaldo", "30.777.777", 0077, 320000, "Pintor");
+			obrero Higuain = new obrero("Higuain", "Pipita", "25.004.470", 0012, 320000, "Electricista");
+			obrero Tevez = new obrero("Carlos", "Tevez", "28.060.150", 0013, 320000, "Plomero");
+			
+			
+			// Crear el grupo de obreros 2006
+			grupoObreros Grupo2006 = new grupoObreros(2006);
+			
+			Grupo2006.agregarObrero(Messi);
+			Grupo2006.agregarObrero(Mascherano);
+			Grupo2006.agregarObrero(CR7);
+			Grupo2006.agregarObrero(Higuain);
+			Grupo2006.agregarObrero(Tevez);
+			
+			
 			//Creación de 2 jefes
 			jefeObra jefeRamon = new jefeObra("Ramón", "Baccleaning", "37912005", 77300, 350000, "Jefe de Obra", 180000);
 			jefeRamon.asignarGrupo(Grupo1235);
@@ -51,16 +70,22 @@ namespace Integrador
 			jefeObra jefeJulio = new jefeObra("Julio", "Fernandez", "33511031", 65305, 320000, "Jefe de Obra", 150000);
 			jefeJulio.asignarGrupo(Grupo1240);
 						
+			//No se crea un tercer jefe para probar el enunciado
 			
-			// Creación de 2 obras
+			
+			
+			
+			// Creación de 3 obras
 			obra puenteFcioVarela = new obra("Jeremy Jackson", "20.152.912", 555, "Construcción de puente", 10500250);
 			puenteFcioVarela.asignarJefe(jefeRamon);
-			 /* puenteFcioVarela.asignarGrupo(Grupo1235); //OJOO */
 			
 			
 			obra rotonda = new obra("Fabricio Diaz", "35.184.557", 999, "Construcción de rotonda", 2900000);
 			rotonda.asignarJefe(jefeJulio);
-			/* rotonda.asignarGrupo(Grupo1240); //OJOO */
+
+			
+			obra canchaFulbo = new obra("Chiqui Tapia", "15.859.151", 206, "Construcción de cancha", 23500250);
+			
 			
 			// ASIGNAR OBRA PUENTE AL GRUPO 1235
 			Grupo1235.asignarObra(puenteFcioVarela);
@@ -70,10 +95,16 @@ namespace Integrador
 			Grupo1240.asignarObra(rotonda);
 			
 			
+			// ASIGNAR OBRA ROTONDA AL GRUPO 2006
+			Grupo2006.asignarObra(canchaFulbo);
+			
+			
+			
 			// Obras en ejecucion
 			ArrayList listaObrasEjecucion = new ArrayList();
 			listaObrasEjecucion.Add(puenteFcioVarela);
 			listaObrasEjecucion.Add(rotonda);
+			listaObrasEjecucion.Add(canchaFulbo);
 			
 			ArrayList listaObrasFinalizadas = new ArrayList();
 			
@@ -82,10 +113,9 @@ namespace Integrador
 			empresa miEmpresa = new empresa(listaObrasEjecucion, listaObrasFinalizadas);
 			
 			miEmpresa.asignarGrupo(Grupo1235);
-			miEmpresa.asignarGrupo(Grupo1240);
+			miEmpresa.asignarGrupo(Grupo1240);  // ASIGNACIÓN DE GRUPOS A LA EMPRESA
+			miEmpresa.asignarGrupo(Grupo2006);
 			
-			//Grupo1240.verObreros();
-			// Empieza mi programa
 			
 			bool menuPrincipal = true;
 			
@@ -141,8 +171,9 @@ namespace Integrador
 						// OPCION 3: CONTRATAR UN JEFE DE OBRA
 						case 3:
 							
-							Console.WriteLine("Contratar a un jefe de obra (se asigna a una obra existente) y se le asocia un grupo de obreros libre.\nSi no existe ningún grupo libre se debe levantar una excepción que indique lo sucedido.\n");
-
+							Console.WriteLine("\nContratar a un jefe de obra");
+							miEmpresa.contratarJefe();
+							
 							break;
 
 						// OPCION 4: SUBMENU
@@ -150,14 +181,14 @@ namespace Integrador
 							
 							bool submenuCondicion = true;
 							while(submenuCondicion){
-								Console.WriteLine("                                                                      ");
-								Console.WriteLine("       ███████╗██╗   ██╗██████╗ ███╗   ███╗███████╗███╗   ██╗██╗   ██╗");
-								Console.WriteLine("       ██╔════╝██║   ██║██╔══██╗████╗ ████║██╔════╝████╗  ██║██║   ██║");
-								Console.WriteLine("       ███████╗██║   ██║██████╔╝██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║");
-								Console.WriteLine("       ╚════██║██║   ██║██╔══██╗██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║");
-								Console.WriteLine("       ███████║╚██████╔╝██████╔╝██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝");
-								Console.WriteLine("       ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝ ");
-								Console.WriteLine("                                                                      ");
+								Console.WriteLine("                                                                             ");
+								Console.WriteLine("       ███████╗██╗   ██╗██████╗ ███╗   ███╗███████╗███╗   ██╗██╗   ██╗       ");
+								Console.WriteLine("       ██╔════╝██║   ██║██╔══██╗████╗ ████║██╔════╝████╗  ██║██║   ██║       ");
+								Console.WriteLine("       ███████╗██║   ██║██████╔╝██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║       ");
+								Console.WriteLine("       ╚════██║██║   ██║██╔══██╗██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║       ");
+								Console.WriteLine("       ███████║╚██████╔╝██████╔╝██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝       ");
+								Console.WriteLine("       ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝        ");
+								Console.WriteLine("                                                                             ");
 								Console.WriteLine("Submenu de opciones:");
 
 								Console.WriteLine("a. Ver listado de obreros");
@@ -228,7 +259,8 @@ namespace Integrador
 						// OPCION 7: DAR DE BAJA A UN JEFE
 						case 6:
 							Console.Clear();
-							Console.WriteLine("Dar de baja a un jefe (se elimina de la empresa, se desvincula de la obra y\nse libera el grupo de obreros asignado).");
+							Console.WriteLine("Dar de baja a un jefe.");
+							miEmpresa.despedirJefe();
 
 							break;
 

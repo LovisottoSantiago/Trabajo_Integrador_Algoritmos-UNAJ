@@ -11,6 +11,7 @@ namespace Integrador
 		private string tipoObra;
 		private double estadoDeAvance;
 		private string nombreJefe; // jefe asignado (nombre)
+		private int legajoJefe; // legajo del jefe asignado
 		private double costo;		
 		
 		public obra(string nombrePropietario, string dniPropietario, int codigoInterno, string tipoObra, double costo)
@@ -53,6 +54,11 @@ namespace Integrador
 			set {nombreJefe = value;}
 		}
 		
+		public int _legajoJefe{
+			get {return legajoJefe;}
+			set {legajoJefe = value;}
+		}
+		
 		public double _costo{
 			get {return costo;}
 			set {costo = value;}
@@ -61,6 +67,14 @@ namespace Integrador
 		
 		public void asignarJefe(jefeObra jefe){
 			nombreJefe = jefe._nombre;
+			legajoJefe = jefe._legajo;
+		}
+		
+		
+		public void eliminarJefe(){
+			nombreJefe = null;
+			legajoJefe = 0;
+			Console.WriteLine("El jefe fue despedido");
 		}
 		
 		
@@ -72,8 +86,19 @@ namespace Integrador
 		
 		
 		public void verJefeAsignado(){
-			Console.WriteLine(nombreJefe);
+			Console.WriteLine("Jefe: " + nombreJefe + ".");
+			Console.WriteLine("Legajo: " + legajoJefe);
 		}
+		
+		public bool ExisteUnJefe(){
+			if (nombreJefe != null){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		
 		
 		public void modificarEstado(){
 			Console.WriteLine("El porcentaje de avance de la obra es de: " + estadoDeAvance + "%.");

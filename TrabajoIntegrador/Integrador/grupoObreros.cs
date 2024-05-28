@@ -8,6 +8,8 @@ namespace Integrador
 		private int codigoGrupo;
 		private ArrayList listaObreros;
 		private int obraAsignadaGrupo;
+		
+		
 			
 		public grupoObreros(int codigoGrupo)
 		{

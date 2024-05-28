@@ -105,27 +105,128 @@ namespace Integrador
 				foreach (grupoObreros y in _empresaGruposAsignado) {
 				
 				if (preguntaCodigoInterno == y._obraAsignadaGrupo){
+					
 						y.verObreros();
 						Console.WriteLine("\n--------Escriba 0 para volver atrás--------\n");	
 						Console.Write("Ingresar legajo del obrero a eliminar: ");
 						int inputObreroEliminar = Convert.ToInt32(Console.ReadLine());
+						
+						
 						y.eliminarObrero(inputObreroEliminar);
 						return;						
 					}
 				}
 		}
 
-
-
+		
+		
+		
+		// VER TODOS LOS OBREROS
 		public void verTodosLosObreros(){
 			foreach (grupoObreros x in _empresaGruposAsignado) {
-				x.verObreros();
+				x.verObreros(); //polimorfismo
 			}
 		}
 		
 		
 		
 		
-	
+		// CONTRATAR UN JEFE
+		public void contratarJefe(){
+			
+			Console.Write("Ingrese el nombre: ");
+	        string nombre = Console.ReadLine();
+	        Console.Write("Ingrese el apellido: ");
+	        string apellido = Console.ReadLine();
+	        Console.Write("Ingrese el DNI: ");
+	        string dni = Console.ReadLine();	
+	        Console.Write("Ingrese el legajo: ");
+	        int legajo = Convert.ToInt32(Console.ReadLine());	        
+	        
+	        foreach (grupoObreros y in _empresaGruposAsignado) {
+					if (y.verificarLegajo(legajo) == false) {
+						return;
+					}
+	        	}
+	        
+	        Console.Write("Ingrese el sueldo: ");
+	        double sueldo = Convert.ToDouble(Console.ReadLine());	
+	        string cargo = "Jefe";			
+	        Console.Write("Ingrese la bonificación: ");
+	        double bonificacion = Convert.ToDouble(Console.ReadLine());
+	        
+	        // Una vez que termino de Crear al Jefe
+	       bool condicion = true;
+	       
+	       while (condicion){
+	       	
+		       Console.WriteLine("------Lista de obras------"); 
+		       foreach (obra x in _obrasEnEjecucion) {
+					Console.WriteLine(x._codigoInterno + ", " + x._tipoObra + ".");
+				}
+				
+				Console.Write("\nIngresar codigo: "); 
+				int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine()); //IMPLEMENTO EXCEPCION	       
+				
+				foreach (obra g in _obrasEnEjecucion) {
+					if (preguntaCodigoInterno == g._codigoInterno) {
+						
+						if (g.ExisteUnJefe() == true){ //llamo a la funcion ExisteUnJefe, que devuelve un bool
+			        		Console.WriteLine("El grupo ya tiene un jefe asignado");
+			        		return;
+			        	}
+						else {
+							Console.WriteLine("El grupo está libre");
+							jefeObra jefeMetodo = new jefeObra(nombre, apellido, dni, legajo, sueldo, cargo, bonificacion);
+							g.asignarJefe(jefeMetodo); //se asigna el jefe a la obra seleccionada
+							Console.WriteLine("Se asignó el jefe " + g._nombreJefe + ", con éxito a la obra " + g._tipoObra + ".");							
+							
+
+							foreach (grupoObreros grupo in _empresaGruposAsignado) {
+								grupo.asignarObra(g);
+							}
+
+							return;							
+						}						
+					}
+				}
+				Console.WriteLine("No existe esa obra...");
+	       }
+		}
+		
+
+		
+		// METODO PARA DESPEDIR JEFE
+		
+		public void despedirJefe(){
+			Console.WriteLine("------Lista de obras------"); 
+		    //Me muestra las obras en ejecucion
+			foreach (obra x in _obrasEnEjecucion) {
+				Console.WriteLine("Codigo interno de la obra es de: " + x._codigoInterno + ", " + x._tipoObra + ".");
+			}		    		    
+			
+			Console.Write("Ingresar codigo: "); 
+			int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());
+
+			foreach (obra y in _obrasEnEjecucion) {
+				if (y.ExisteUnJefe() == true){
+					if (preguntaCodigoInterno == y._codigoInterno){
+						y.verJefeAsignado();
+						y.eliminarJefe();
+						return;
+					}
+				}
+				else {
+					Console.WriteLine("No existe un jefe"); // EXCEPCION
+				}
+				
+			}
+			
+		} 
+		
+		
+		
+		
+		
 	}
 }
