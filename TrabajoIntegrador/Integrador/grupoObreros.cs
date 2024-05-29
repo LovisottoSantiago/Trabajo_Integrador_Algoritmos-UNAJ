@@ -9,8 +9,6 @@ namespace Integrador
 		private ArrayList listaObreros;
 		private int obraAsignadaGrupo;
 		
-		
-			
 		public grupoObreros(int codigoGrupo)
 		{
 			this.codigoGrupo = codigoGrupo;
@@ -33,15 +31,18 @@ namespace Integrador
 			set {obraAsignadaGrupo = value;}
 		}
 		
-		//METODOS
 		
-		// METODO PARA AGREGAR UN OBRERO
+		
+		// ------------------------------- AGREGAR UN OBRERO ------------------------------- //
+		
 		public void agregarObrero(obrero x){ //Agrega a un Obrero creado previamente.
 			listaObreros.Add(x);
 		}
 		
 		
-		// METODO PARA ELIMINAR UN OBRERO
+		
+		// ------------------------------- ELIMINAR UN OBRERO ------------------------------- //
+		
 		public void eliminarObrero(int legajo){	
 		
 			foreach (obrero x in listaObreros){ //Recorro todos los obreros de la lista
@@ -54,12 +55,13 @@ namespace Integrador
 			        return; // Salir del método después de eliminar al obrero
 			    }
 			  }
-    
     		Console.WriteLine("No se encontró ningún obrero con el legajo " + legajo + ".");
 		}
 		
 		
-		// METODO PARA VISUALIZAR UN OBRERO
+		
+		// ------------------------------- VISUALIZAR UN OBRERO ------------------------------- //
+		
 		public void visualizarObrero(int legajo){
 			foreach (obrero z in listaObreros) { //Recorro todos los obreros de la lista
 				if (z._legajo == legajo){
@@ -75,13 +77,18 @@ namespace Integrador
 			Console.WriteLine("No se encontró ningun obrero con el legajo " + legajo + ".");
 		}
 		
-		// METODO PARA VER LA CANTIDAD DE OBREROS	
+		
+		
+		// ------------------------------- VER LA CANTIDAD DE OBREROS ------------------------------- //
+		
 		public void cantidadObreros(){
 			Console.WriteLine("La cantidad de obreros es: " + listaObreros.Count);
 		}		
 		
 		
-		// METODO PARA VER TODA LA LISTA DE OBREROS
+		
+		// ------------------------------- MOSTRAR A TODOS LOS OBREROS ------------------------------- //
+		
 		public void verObreros(){
 			foreach (obrero x in listaObreros) {
 				Console.WriteLine(x._apellido + " " + x._nombre + ", legajo: " + x._legajo + ".");
@@ -89,7 +96,9 @@ namespace Integrador
 		}
 		
 		
-		// METODO PARA VERIFICAR SI EL LEGAJO ESTÁ DISPONIBLE
+		
+		// ------------------------------- VERIFICAR EL LEGAJO ------------------------------- //
+		
 		public bool verificarLegajo(int legajo){
 			foreach (obrero y in listaObreros) {
 				if (y._legajo == legajo){
@@ -101,11 +110,15 @@ namespace Integrador
 		}
 		
 		
-		// METODO PARA ASIGNAR OBRA 
+		
+		// ------------------------------- ASIGNAR OBRA AL GRUPO ------------------------------- //
+		
 		public void asignarObra(obra obraParaAsignar){
 			 _obraAsignadaGrupo = obraParaAsignar._codigoInterno;
 		}
 		
-				
+		
+		
+		// --- FIN --- //
 	}
 }

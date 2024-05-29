@@ -25,8 +25,6 @@ namespace Integrador
 			Grupo1235.agregarObrero(Raul);
 			
 
-			
-			
 			//SEGUNDO GRUPO DE OBREROS
 			obrero Pedro = new obrero("Pedro", "González", "44.000.4400", 0006, 320000, "Carpintero");
 			obrero Javier = new obrero("Javier", "Martínez", "34.300.200", 0007, 320000, "Albañil");
@@ -44,7 +42,6 @@ namespace Integrador
 			Grupo1240.agregarObrero(Manuel);
 														
 
-			
 			//TERCER GRUPO DE OBREROS (SIN JEFE)
 			obrero Messi = new obrero("Leo", "Messi", "34.000.4400", 0010, 320000, "Carpintero");
 			obrero Mascherano = new obrero("Javier", "Masche", "33.343.200", 0011, 320000, "Albañil");
@@ -73,8 +70,6 @@ namespace Integrador
 			//No se crea un tercer jefe para probar el enunciado
 			
 			
-			
-			
 			// Creación de 3 obras
 			obra puenteFcioVarela = new obra("Jeremy Jackson", "20.152.912", 555, "Remodelacion", 20, 10500250);
 			puenteFcioVarela.asignarJefe(jefeRamon);
@@ -99,15 +94,9 @@ namespace Integrador
 			Grupo2006.asignarObra(canchaFulbo);
 			
 			
-			
 			// Obras en ejecucion
-			ArrayList listaObrasEjecucion = new ArrayList();
-			//listaObrasEjecucion.Add(puenteFcioVarela);
-		//	listaObrasEjecucion.Add(rotonda);
-		//	listaObrasEjecucion.Add(canchaFulbo);
-			
-			ArrayList listaObrasFinalizadas = new ArrayList();
-			
+			ArrayList listaObrasEjecucion = new ArrayList();			
+			ArrayList listaObrasFinalizadas = new ArrayList();			
 			
 			
 			// Creacion de la Empresa
@@ -160,24 +149,21 @@ namespace Integrador
 						
 						// OPCION 1: CONTRATAR OBRERO
 						case 1:
-							Console.Clear();
-							Console.WriteLine("Contratar un obrero nuevo (se agrega a la empresa y a un grupo).\n");
+							Console.WriteLine("--------------- CONTRATAR A UN OBRERO ---------------\n");
 							miEmpresa.contratarObrero();
 
 							break;
 							
 						// OPCION 2: ELIMINAR UN OBRERO
 						case 2:
-							Console.Clear();
-							Console.WriteLine("Eliminar un obrero (se elimina de la empresa y de su grupo).\n");
+							Console.WriteLine("--------------- ELIMINAR A UN OBRERO ---------------\n");
 							miEmpresa.despedirObrero();
 
 							break;
 
 						// OPCION 3: CONTRATAR UN JEFE DE OBRA
 						case 3:
-							
-							Console.WriteLine("\nContratar a un jefe de obra");
+							Console.WriteLine("--------------- CONTRATAR A UN JEFE DE OBRA ---------------\n");
 							miEmpresa.contratarJefe();
 							
 							break;
@@ -213,7 +199,6 @@ namespace Integrador
 									
 									switch (opcionSubmenu) {
 										case "a":
-											Console.Clear();
 											Console.WriteLine("------------------------------ Ver listado de obreros ------------------------------\n");
 											miEmpresa.verTodosLosObreros();
 											break;
@@ -235,8 +220,6 @@ namespace Integrador
 											
 										case "e":
 											Console.WriteLine("-------------- Ver porcentaje de obras de remodelación sin finalizar --------------\n");
-											// miEmpresa.cantidadObrasEnEjecucion(); //Me muestra la cantidad de obras en ejecucion
-										    // miEmpresa.cantidadObrasFinalizadas(); //Me muestra la cantidad de obras en ejecucion
 										    miEmpresa.porcentajeRemodelacion();
 											break;
 											
@@ -261,38 +244,40 @@ namespace Integrador
 
 						// OPCION 5: MODIFICAR ESTADO DE OBRA
 						case 5:
-							Console.Clear();
-							Console.WriteLine("Modificar el estado de avance de una obra.");
-							miEmpresa.ObraModificarEstado();
+							Console.WriteLine("--------------- MODIFICAR ESTADO DE AVANCE DE UNA OBRA ---------------\n");
+							try {
+								miEmpresa.ObraModificarEstado();
+							} 
+							catch (misExcepciones.excepcionModificarObra o) {
+								Console.WriteLine(o.Message);
+							}
 							break;
 
 
 						// OPCION 6: DAR DE BAJA A UN JEFE
 						case 6:
-							Console.Clear();
-							Console.WriteLine("Dar de baja a un jefe.");
+							Console.WriteLine("--------------- DAR DE BAJA A UN JEFE ---------------\n");
 							miEmpresa.despedirJefe();
 							break;
 							
 						
 						// OPCION 7: CREAR OBRA
 						case 7:
-							Console.Clear();
 							Console.WriteLine("------------------------------ Crear Obra ------------------------------\n");
 							
 							try {
 								obra a = miEmpresa.crearObra(); // Como crearObra devuelve una obra, la asigno en una variable							
-								miEmpresa.agregarObraEmpresa(a); 	
+								miEmpresa.agregarObraEmpresa(a);
+								Console.Write("Ingresa un codigo para el grupo asignado: ");
+								int codigoG = Convert.ToInt32(Console.ReadLine());
+								grupoObreros grupoNuevo = new grupoObreros(codigoG);							
+								miEmpresa.asignarGrupo(grupoNuevo);
+								grupoNuevo.asignarObra(a);
 							}
 							catch (misExcepciones.excepcionCodigoRepetido e) {
 								Console.WriteLine(e.Message);
 							}
-							
-							
-							
-							
-							
-							
+														
 							break;
 							
 							
@@ -312,88 +297,7 @@ namespace Integrador
 				catch (FormatException){
 					Console.WriteLine("Porfavor, ingresa un número");
 				}
-
-			}
-				
-				
-
-
-			
-			
-			
-			/*
-			//PREVIO 
-			obra PatioBacclean = new obra("Baccleaning Charles", "123123", 09, "Limpiezaning", 900000);
-							
-			jefeObra ELJEFOTE = new jefeObra("SUPREME BACCLEANING", "Bacclean", "6321", 999, 1200, "Jefe", 7000);			
-
-			ELJEFOTE.asignarGrupo(LosPibes);
-						
-			PatioBacclean.asignarJefe(ELJEFOTE);
-			
-			//PatioBacclean.verJefeAsignado();
-			
-			
-			// Cambiar porcentaje de obra
-			PatioBacclean.modificarEstado();
-			
-			ArrayList lista1 = new ArrayList();
-			lista1.Add(PatioBacclean);
-			ArrayList lista2 = new ArrayList();
-			
-			
-			// Asignar grupo de la obra
-			empresa BaccleanInc = new empresa(lista1, lista2);
-			BaccleanInc.asignarGrupo(LosPibes);
-			
-			BaccleanInc.despedirObrero();
-			
-			
-			LosPibes.verObreros();
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			/* ELIMINAR OBRERO
-			
-			
-			try {
-				Console.Write("¿Cual desea eliminar? [legajo]: ");
-				int pregunta = Convert.ToInt32(Console.ReadLine());						
-				LosPibes.eliminarObrero(pregunta);
-			}
-			catch (FormatException){
-				Console.WriteLine("Porfavor, ingresa un número.");
-			} */	
-
-			
-			
-			
-			
-			/* VISUALIZAR OBRERO
-			try {
-				Console.Write("¿Cual desea visualizar? [legajo]: ");
-				int pregunta = Convert.ToInt32(Console.ReadLine());						
-				LosPibes.visualizarObrero(pregunta);
-			}
-			catch (FormatException){
-				Console.WriteLine("Porfavor, ingresa un número.");
-			} */
-			
-			
-			
-			
-			/* VER CANTIDAD DE OBREROS
-			LosPibes.cantidadObreros(); */
-			
-			
+			}	
 			
 			Console.Write("Press any key to continue . . . ");
 			Console.ReadKey(true);

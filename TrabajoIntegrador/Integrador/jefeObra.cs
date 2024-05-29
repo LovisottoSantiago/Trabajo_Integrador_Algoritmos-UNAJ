@@ -32,14 +32,15 @@ namespace Integrador
 			set {jefeGrupoAsignado = value;}
 		}
 		
-						
+
+		// ------------------------------- ASIGNAR UN GRUPO ------------------------------- //		
+		
 		public void asignarGrupo(grupoObreros grupoAsignado){
 			jefeGrupoAsignado[0] = (grupoAsignado);
 		}
-				
 		
 		
-		
-		
+
+		// --- FIN --- //		
 	}
 }

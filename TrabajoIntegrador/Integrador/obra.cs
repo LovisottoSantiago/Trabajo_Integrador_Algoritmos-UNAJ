@@ -65,23 +65,34 @@ namespace Integrador
 		}
 		
 		
+		// ------------------------------- ASIGNAR JEFE ------------------------------- //
+		
 		public void asignarJefe(jefeObra jefe){
 			nombreJefe = jefe._nombre;
 			legajoJefe = jefe._legajo;
 		}
 		
 		
+		// ------------------------------- ELIMINAR JEFE ------------------------------- //
+		
 		public void eliminarJefe(){
 			nombreJefe = null;
 			legajoJefe = 0;
 			Console.WriteLine("El jefe fue despedido");
 		}
-				
-				
+			
+		
+		
+		// ------------------------------- VER JEFE ------------------------------- //				
+		
 		public void verJefeAsignado(){
 			Console.WriteLine("Jefe: " + nombreJefe + ".");
 			Console.WriteLine("Legajo: " + legajoJefe);
 		}
+		
+		
+		
+		// ------------------------------- CONSULTAR SI EXISTE UN JEFE ------------------------------- //
 		
 		public bool ExisteUnJefe(){
 			if (nombreJefe != null){
@@ -92,6 +103,9 @@ namespace Integrador
 			}
 		}
 		
+		
+		
+		// ------------------------------- MODIFICAR ESTADO DE UNA OBRA ------------------------------- //
 		
 		public void modificarEstado(){
 			Console.WriteLine("El porcentaje de avance de la obra es de: " + estadoDeAvance + "%.");
@@ -108,6 +122,9 @@ namespace Integrador
 		}
 		
 		
+		
+		// ------------------------------- CONSULTAR SI SE REPITE EL CODIGO INTERNO ------------------------------- //
+		
 		public bool ExisteCodigo(int codigo){
 			if (_codigoInterno == codigo){
 				return true;
@@ -119,5 +136,6 @@ namespace Integrador
 		
 		
 		
+		// --- FIN --- //
 	}
 }
