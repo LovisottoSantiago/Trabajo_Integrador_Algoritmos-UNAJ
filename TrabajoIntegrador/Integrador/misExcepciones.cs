@@ -3,9 +3,9 @@ namespace Integrador
 {
 	public static class misExcepciones
 	{
-		public class excepcionObrasDisponibles : Exception
+		public class excepcionCodigoRepetido : Exception
 		{
-			public excepcionObrasDisponibles(string Message) : base(Message) {}						
+			public excepcionCodigoRepetido(string Message) : base(Message) {}						
 			
 			
 		}

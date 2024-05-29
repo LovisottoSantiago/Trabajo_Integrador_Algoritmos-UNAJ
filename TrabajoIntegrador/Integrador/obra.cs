@@ -14,13 +14,13 @@ namespace Integrador
 		private int legajoJefe; // legajo del jefe asignado
 		private double costo;		
 		
-		public obra(string nombrePropietario, string dniPropietario, int codigoInterno, string tipoObra, double costo)
+		public obra(string nombrePropietario, string dniPropietario, int codigoInterno, string tipoObra, double estadoDeAvance, double costo)
 		{
 			this.nombrePropietario = nombrePropietario;
 			this.dniPropietario = dniPropietario;
 			this.codigoInterno = codigoInterno;
 			this.tipoObra = tipoObra;
-			estadoDeAvance = 0;
+			this.estadoDeAvance = estadoDeAvance;
 			this.costo = costo;
 		}
 		
@@ -76,15 +76,8 @@ namespace Integrador
 			legajoJefe = 0;
 			Console.WriteLine("El jefe fue despedido");
 		}
-		
-		
-		/* OJOOO
-		public void asignarGrupo(grupoObreros grupo){
-			grupo._codigoGrupo = _codigoInterno;
-		} */
-		
-		
-		
+				
+				
 		public void verJefeAsignado(){
 			Console.WriteLine("Jefe: " + nombreJefe + ".");
 			Console.WriteLine("Legajo: " + legajoJefe);
@@ -104,7 +97,7 @@ namespace Integrador
 			Console.WriteLine("El porcentaje de avance de la obra es de: " + estadoDeAvance + "%.");
 			Console.Write("Ingresar valor: ");
 			double modificacion = Convert.ToDouble(Console.ReadLine());
-			if (modificacion <= 100){
+			if ((modificacion <= 100) && (modificacion >= 0)){
 				estadoDeAvance = modificacion;
 				Console.WriteLine("Porcentaje actualizado: " + estadoDeAvance + "%.");
 			}
@@ -113,6 +106,18 @@ namespace Integrador
 			}
 			
 		}
+		
+		
+		public bool ExisteCodigo(int codigo){
+			if (_codigoInterno == codigo){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		
+		
 		
 	}
 }

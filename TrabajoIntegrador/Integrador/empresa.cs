@@ -129,6 +129,26 @@ namespace Integrador
 		}
 		
 		
+		// VER TODOS LOS JEFES
+		public void verTodosLosJefes(){
+			Console.WriteLine("\nJefes en obras en ejecucion:");
+			foreach (obra y in _obrasEnEjecucion) {
+				if (y.ExisteUnJefe() == true){ // Para que no me muestre los jefes vacios
+					y.verJefeAsignado();
+				}
+				
+			}
+			
+			Console.WriteLine("\nLos Jefes en obras finalizadas eran:");
+			foreach (obra y in _obrasFinalizadas) {
+				if (y.ExisteUnJefe() == true){ // Para que no me muestre los jefes vacios
+					y.verJefeAsignado();
+					return;
+				}				
+			}
+			Console.WriteLine("No hay jefes en obras finalizadas");
+		}
+		
 		
 		
 		// CONTRATAR UN JEFE
@@ -166,7 +186,7 @@ namespace Integrador
 				}
 				
 				Console.Write("\nIngresar codigo: "); 
-				int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine()); //IMPLEMENTO EXCEPCION	       
+				int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());      
 				
 				foreach (obra g in _obrasEnEjecucion) {
 					if (preguntaCodigoInterno == g._codigoInterno) {
@@ -217,14 +237,131 @@ namespace Integrador
 					}
 				}
 				else {
-					Console.WriteLine("No existe un jefe"); // EXCEPCION
+					Console.WriteLine("No existe un jefe"); 
 				}
 				
 			}
 			
 		} 
 		
+		// Agregar Obra a la Empresa
+		public void agregarObraEmpresa(obra obraParaAgregar){
+			
+			if (obraParaAgregar._estadoDeAvance < 100){
+				_obrasEnEjecucion.Add(obraParaAgregar);
+			}
+			else {
+				_obrasFinalizadas.Add(obraParaAgregar);
+			}
+		}
 		
+
+		// CANTIDAD DE OBRAS EN EJECUCION
+		public void cantidadObrasEnEjecucion(){
+			int cantidad = 0;
+			foreach (obra x in _obrasEnEjecucion) {
+				cantidad ++;
+			}
+			Console.WriteLine(cantidad);
+		}
+		
+		// CANTIDAD DE OBRAS FINALIZADAS
+		public void cantidadObrasFinalizadas(){
+			int cantidad = 0;
+			foreach (obra x in _obrasFinalizadas) {
+				cantidad ++;
+			}
+			Console.WriteLine(cantidad);
+		}
+		
+		
+		// PORCENTAJE DE OBRAS 'REMODELACION' SIN FINALIZAR
+		public void porcentajeRemodelacion(){
+			//	LAS OBRAS EN REMODELACION
+			int cantidadRemodelacion = 0;
+			foreach (obra y in _obrasEnEjecucion) {
+				if ((y._tipoObra).ToUpper() == "REMODELACION"){
+					cantidadRemodelacion ++;
+				}
+			}                                         // cantidadObras  ==> 100% 			                                         //  cantidadRemodelacion ==> x
+			// TODAS LAS OBRAS
+			int cantidadObras = 0;
+			foreach (obra x in _obrasEnEjecucion) {
+				cantidadObras ++;
+			}			
+			int cuenta = (cantidadRemodelacion * 100) / cantidadObras;			
+			Console.WriteLine("El porcentaje de obras Remodelacion sin finalizar es de " + cuenta + "%.");
+		}
+		
+		
+		// Modificar estado de una obra
+		public void ObraModificarEstado(){
+			Console.WriteLine("------Lista de obras------"); 
+		    //Me muestra las obras en ejecucion
+			foreach (obra x in _obrasEnEjecucion) {
+				Console.WriteLine("Codigo interno de la obra es de: " + x._codigoInterno + ", " + x._tipoObra + ".");
+			}		    		    
+			
+			Console.Write("Ingresar codigo: "); 
+			int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());
+			
+			foreach (obra y in _obrasEnEjecucion) {
+				if (preguntaCodigoInterno == y._codigoInterno){
+					y.modificarEstado();
+					
+					if (y._estadoDeAvance == 100){
+						_obrasFinalizadas.Add(y);
+						_obrasEnEjecucion.Remove(y);
+						return;
+					}
+				}
+			}
+		}
+		
+
+		// Ver listado de obras en ejecución
+		public void listadoObrasEnEjecucion(){
+			foreach (obra x in _obrasEnEjecucion) {
+				Console.WriteLine(x._tipoObra + ", codigo " + x._codigoInterno + ", avance " + x._estadoDeAvance + "%, propietario: " + x._nombrePropietario + ", jefe de obra asignado: " + x._nombreJefe + ".\n");
+			}
+			
+		}
+		
+		
+		// Ver listado de obras finalizadas
+		public void listadoObrasFinalizadas(){
+			foreach (obra x in _obrasFinalizadas) {
+				Console.WriteLine(x._tipoObra + ", codigo " + x._codigoInterno + ", avance " + x._estadoDeAvance + "%, propietario: " + x._nombrePropietario + ", jefe de obra asignado: " + x._nombreJefe + ".\n");
+			}
+			
+		}
+		
+		
+		// CREAR OBRA
+		public obra crearObra(){
+			Console.Write("Ingresar nombre del propietario: ");
+			string nombrePropietario = Console.ReadLine();
+			Console.Write("Ingresar DNI del propietario: ");
+			string dniPropietario = Console.ReadLine();
+			Console.Write("Ingresar codigo interno: ");
+			int codigoInterno = Convert.ToInt32(Console.ReadLine());
+			
+			foreach (obra y in _obrasEnEjecucion) {
+				if (y._codigoInterno == codigoInterno){
+					throw new misExcepciones.excepcionCodigoRepetido("Ese codigo ya existe");
+				}
+			} 
+			
+			Console.Write("Ingresar tipo de obra: ");
+			string tipoObra = Console.ReadLine();
+			Console.Write("Ingresar estado de avance: ");
+			double estadoDeAvance = Convert.ToDouble(Console.ReadLine());
+			Console.Write("Ingresar costo: ");
+			double costo = Convert.ToDouble(Console.ReadLine());
+			
+			obra nuevaObra = new obra(nombrePropietario, dniPropietario, codigoInterno, tipoObra, estadoDeAvance, costo);					
+			return nuevaObra;
+		}
 		
 		
 		

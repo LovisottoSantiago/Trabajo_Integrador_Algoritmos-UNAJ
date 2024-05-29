@@ -9,8 +9,8 @@ namespace Integrador
 		{
 			
 			//PRIMER GRUPO DE OBREROS
-			obrero Agustin = new obrero("Agustin", "Bacclean", "44.000.400", 0001, 350000, "Albañil");
-			obrero Lucas = new obrero("Lucas", "Pradela", "34.300.100", 0002, 350000, "Pintor");
+			obrero Agustin = new obrero("Agustin", "Bacclean", "44.000.400", 0001, 350000, "Capataz");
+			obrero Lucas = new obrero("Lucas", "Pradela", "34.300.100", 0002, 350000, "Peon");
 			obrero Jorgito = new obrero("Jorge", "Johnson", "41.902.900", 888, 350000, "Electricista");
 			obrero Santiago = new obrero("Santiago", "Lovinson", "45.004.460", 0004, 350000, "Plomero");
 			obrero Raul = new obrero("Raul", "Bacclean", "38.060.130", 0005, 350000, "Techista");
@@ -76,15 +76,15 @@ namespace Integrador
 			
 			
 			// Creación de 3 obras
-			obra puenteFcioVarela = new obra("Jeremy Jackson", "20.152.912", 555, "Construcción de puente", 10500250);
+			obra puenteFcioVarela = new obra("Jeremy Jackson", "20.152.912", 555, "Remodelacion", 20, 10500250);
 			puenteFcioVarela.asignarJefe(jefeRamon);
 			
 			
-			obra rotonda = new obra("Fabricio Diaz", "35.184.557", 999, "Construcción de rotonda", 2900000);
+			obra rotonda = new obra("Fabricio Diaz", "35.184.557", 999, "Remodelacion", 70,2900000);
 			rotonda.asignarJefe(jefeJulio);
 
 			
-			obra canchaFulbo = new obra("Chiqui Tapia", "15.859.151", 206, "Construcción de cancha", 23500250);
+			obra canchaFulbo = new obra("Chiqui Tapia", "15.859.151", 206, "Construcción de cancha", 10, 23500250);
 			
 			
 			// ASIGNAR OBRA PUENTE AL GRUPO 1235
@@ -102,11 +102,12 @@ namespace Integrador
 			
 			// Obras en ejecucion
 			ArrayList listaObrasEjecucion = new ArrayList();
-			listaObrasEjecucion.Add(puenteFcioVarela);
-			listaObrasEjecucion.Add(rotonda);
-			listaObrasEjecucion.Add(canchaFulbo);
+			//listaObrasEjecucion.Add(puenteFcioVarela);
+		//	listaObrasEjecucion.Add(rotonda);
+		//	listaObrasEjecucion.Add(canchaFulbo);
 			
 			ArrayList listaObrasFinalizadas = new ArrayList();
+			
 			
 			
 			// Creacion de la Empresa
@@ -116,6 +117,10 @@ namespace Integrador
 			miEmpresa.asignarGrupo(Grupo1240);  // ASIGNACIÓN DE GRUPOS A LA EMPRESA
 			miEmpresa.asignarGrupo(Grupo2006);
 			
+			
+			miEmpresa.agregarObraEmpresa(puenteFcioVarela);
+			miEmpresa.agregarObraEmpresa(rotonda);  // ASIGNACIÓN DE OBRAS A LA EMPRESA TENIENDO EN CUENTA
+			miEmpresa.agregarObraEmpresa(canchaFulbo); // SU ESTADO DE AVANCE %.
 			
 			bool menuPrincipal = true;
 			
@@ -140,7 +145,8 @@ namespace Integrador
 				Console.WriteLine("4. Submenú de impresión");
 				Console.WriteLine("5. Modificar el estado de avance de una obra");
 				Console.WriteLine("6. Dar de baja a un jefe");
-				Console.WriteLine("7. Salir");
+				Console.WriteLine("7. Crear Obra");
+				Console.WriteLine("8. Salir");
 				
 				
 				// Manejador de excepciones | PRINCIPAL, por si el usuario no elije un número (int)
@@ -208,25 +214,30 @@ namespace Integrador
 									switch (opcionSubmenu) {
 										case "a":
 											Console.Clear();
-											Console.WriteLine("Ver listado de obreros\n");
+											Console.WriteLine("------------------------------ Ver listado de obreros ------------------------------\n");
 											miEmpresa.verTodosLosObreros();
 											break;
 											
 										case "b":
-											Console.WriteLine("Ver listado de obras en ejecución");
-											
+											Console.WriteLine("------------------------------ Ver listado de obras en ejecución ------------------------------\n");
+											miEmpresa.listadoObrasEnEjecucion();
 											break;
 											
 										case "c":
-											Console.WriteLine("Ver listado de obras finalizadas");
+											Console.WriteLine("------------------------------ Ver listado de obras finalizadas ------------------------------\n");
+											miEmpresa.listadoObrasFinalizadas();
 											break;
 											
 										case "d":
-											Console.WriteLine("Ver listado de jefes");
+											Console.WriteLine("------------------------------ Ver listado de jefes ------------------------------\n");
+											miEmpresa.verTodosLosJefes();
 											break;
 											
 										case "e":
-											Console.WriteLine("Ver porcentaje de obras de remodelación sin finalizar");
+											Console.WriteLine("-------------- Ver porcentaje de obras de remodelación sin finalizar --------------\n");
+											// miEmpresa.cantidadObrasEnEjecucion(); //Me muestra la cantidad de obras en ejecucion
+										    // miEmpresa.cantidadObrasFinalizadas(); //Me muestra la cantidad de obras en ejecucion
+										    miEmpresa.porcentajeRemodelacion();
 											break;
 											
 										case "x":
@@ -252,22 +263,43 @@ namespace Integrador
 						case 5:
 							Console.Clear();
 							Console.WriteLine("Modificar el estado de avance de una obra.");
-
+							miEmpresa.ObraModificarEstado();
 							break;
 
 
-						// OPCION 7: DAR DE BAJA A UN JEFE
+						// OPCION 6: DAR DE BAJA A UN JEFE
 						case 6:
 							Console.Clear();
 							Console.WriteLine("Dar de baja a un jefe.");
 							miEmpresa.despedirJefe();
-
 							break;
-
+							
+						
+						// OPCION 7: CREAR OBRA
 						case 7:
+							Console.Clear();
+							Console.WriteLine("------------------------------ Crear Obra ------------------------------\n");
+							
+							try {
+								obra a = miEmpresa.crearObra(); // Como crearObra devuelve una obra, la asigno en una variable							
+								miEmpresa.agregarObraEmpresa(a); 	
+							}
+							catch (misExcepciones.excepcionCodigoRepetido e) {
+								Console.WriteLine(e.Message);
+							}
+							
+							
+							
+							
+							
+							
+							break;
+							
+							
+						case 8:
 							Console.WriteLine("Saliendo...");
 							menuPrincipal = false;
-							break;
+							break;	
 							
 						default:
 							Console.WriteLine("La opción que elegiste no es correcta\n");
