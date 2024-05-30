@@ -27,5 +27,11 @@ namespace Integrador
 			public excepcionCodigoNoExiste(string Message) : base(Message) {}
 		}
 		
+		// SI CREO UNA OBRA CON UN VALOR DE ESTADO INVALIDO
+		public class excepcionEstadoInvalido : Exception
+		{
+			public excepcionEstadoInvalido(string Message) : base(Message) {}
+		}
+		
 	}
 }

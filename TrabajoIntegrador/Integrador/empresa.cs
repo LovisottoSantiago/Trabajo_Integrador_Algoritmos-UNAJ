@@ -371,6 +371,12 @@ namespace Integrador
 			string tipoObra = Console.ReadLine();
 			Console.Write("Ingresar estado de avance: ");
 			double estadoDeAvance = Convert.ToDouble(Console.ReadLine());
+			if (estadoDeAvance > 100) {
+				throw new misExcepciones.excepcionEstadoInvalido("Opcion incorrecta");
+			}
+			else if (estadoDeAvance < 0) {
+				throw new misExcepciones.excepcionEstadoInvalido("Opcion incorrecta");
+			}
 			Console.Write("Ingresar costo: ");
 			double costo = Convert.ToDouble(Console.ReadLine());
 			

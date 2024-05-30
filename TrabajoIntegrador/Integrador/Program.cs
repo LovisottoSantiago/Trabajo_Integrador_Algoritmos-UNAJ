@@ -301,6 +301,9 @@ namespace Integrador
 							catch (misExcepciones.excepcionAsignarGrupo x) {
 								Console.WriteLine(x.Message);
 							}
+							catch (misExcepciones.excepcionEstadoInvalido c){
+								Console.WriteLine(c.Message);
+							}
 														
 							break;
 							
