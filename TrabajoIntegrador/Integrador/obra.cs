@@ -108,8 +108,8 @@ namespace Integrador
 		// ------------------------------- MODIFICAR ESTADO DE UNA OBRA ------------------------------- //
 		
 		public void modificarEstado(){
-			Console.WriteLine("El porcentaje de avance de la obra es de: " + estadoDeAvance + "%.");
-			Console.Write("Ingresar valor: ");
+			Console.WriteLine("El porcentaje de avance de la obra actual es de: " + estadoDeAvance + "%.");
+			Console.Write("Ingresar valor [0 - 100]: ");
 			double modificacion = Convert.ToDouble(Console.ReadLine());
 			if ((modificacion <= 100) && (modificacion >= 0)){
 				estadoDeAvance = modificacion;

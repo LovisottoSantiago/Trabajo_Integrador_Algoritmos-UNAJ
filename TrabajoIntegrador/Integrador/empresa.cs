@@ -369,7 +369,7 @@ namespace Integrador
 			
 			Console.Write("Ingresar tipo de obra: ");
 			string tipoObra = Console.ReadLine();
-			Console.Write("Ingresar estado de avance: ");
+			Console.Write("Ingresar estado de avance [0 - 100]: ");
 			double estadoDeAvance = Convert.ToDouble(Console.ReadLine());
 			if (estadoDeAvance > 100) {
 				throw new misExcepciones.excepcionEstadoInvalido("Opcion incorrecta");
