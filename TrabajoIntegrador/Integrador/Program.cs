@@ -102,9 +102,9 @@ namespace Integrador
 			// Creacion de la Empresa
 			empresa miEmpresa = new empresa(listaObrasEjecucion, listaObrasFinalizadas);
 			
-			miEmpresa.asignarGrupo(Grupo1235);
-			miEmpresa.asignarGrupo(Grupo1240);  // ASIGNACIÓN DE GRUPOS A LA EMPRESA
-			miEmpresa.asignarGrupo(Grupo2006);
+			miEmpresa.asignarGrupo(Grupo1235, 1235);
+			miEmpresa.asignarGrupo(Grupo1240, 1240);  // ASIGNACIÓN DE GRUPOS A LA EMPRESA
+			miEmpresa.asignarGrupo(Grupo2006, 2006);
 			
 			
 			miEmpresa.agregarObraEmpresa(puenteFcioVarela);
@@ -150,22 +150,35 @@ namespace Integrador
 						// OPCION 1: CONTRATAR OBRERO
 						case 1:
 							Console.WriteLine("--------------- CONTRATAR A UN OBRERO ---------------\n");
-							miEmpresa.contratarObrero();
+							try {
+								miEmpresa.contratarObrero();
+							}
+							catch (misExcepciones.excepcionCodigoNoExiste u){
+								Console.WriteLine(u.Message);
+							}
 
 							break;
 							
 						// OPCION 2: ELIMINAR UN OBRERO
 						case 2:
 							Console.WriteLine("--------------- ELIMINAR A UN OBRERO ---------------\n");
-							miEmpresa.despedirObrero();
-
+							try {
+								miEmpresa.despedirObrero();
+							}
+							catch (misExcepciones.excepcionCodigoNoExiste u){
+								Console.WriteLine(u.Message);
+							}
 							break;
 
 						// OPCION 3: CONTRATAR UN JEFE DE OBRA
 						case 3:
 							Console.WriteLine("--------------- CONTRATAR A UN JEFE DE OBRA ---------------\n");
-							miEmpresa.contratarJefe();
-							
+							try {
+								miEmpresa.contratarJefe();
+							}
+							catch (misExcepciones.excepcionCodigoNoExiste u){
+								Console.WriteLine(u.Message);
+							}
 							break;
 
 						// OPCION 4: SUBMENU
@@ -257,7 +270,12 @@ namespace Integrador
 						// OPCION 6: DAR DE BAJA A UN JEFE
 						case 6:
 							Console.WriteLine("--------------- DAR DE BAJA A UN JEFE ---------------\n");
-							miEmpresa.despedirJefe();
+							try {
+								miEmpresa.despedirJefe();
+							}
+							catch (misExcepciones.excepcionCodigoNoExiste u){
+								Console.WriteLine(u.Message);
+							}
 							break;
 							
 						
@@ -267,15 +285,21 @@ namespace Integrador
 							
 							try {
 								obra a = miEmpresa.crearObra(); // Como crearObra devuelve una obra, la asigno en una variable							
-								miEmpresa.agregarObraEmpresa(a);
+								
 								Console.Write("Ingresa un codigo para el grupo asignado: ");
 								int codigoG = Convert.ToInt32(Console.ReadLine());
-								grupoObreros grupoNuevo = new grupoObreros(codigoG);							
-								miEmpresa.asignarGrupo(grupoNuevo);
-								grupoNuevo.asignarObra(a);
+								grupoObreros grupoNuevo = new grupoObreros(codigoG);
+								
+								miEmpresa.asignarGrupo(grupoNuevo, codigoG); // Evaluo si el codigo del grupo no se repite
+								
+								miEmpresa.agregarObraEmpresa(a); // Si no se repite, agrego la obra
+								grupoNuevo.asignarObra(a); // Le asigno la obra al grupo
 							}
 							catch (misExcepciones.excepcionCodigoRepetido e) {
 								Console.WriteLine(e.Message);
+							}
+							catch (misExcepciones.excepcionAsignarGrupo x) {
+								Console.WriteLine(x.Message);
 							}
 														
 							break;
@@ -296,6 +320,9 @@ namespace Integrador
 				// Para manejar la excepcion del menu, si el usuario no ingresa un numero e ingresa una letra
 				catch (FormatException){
 					Console.WriteLine("Porfavor, ingresa un número");
+				}
+				catch (OverflowException){
+					Console.WriteLine("Valor fuera del rango");
 				}
 			}	
 			

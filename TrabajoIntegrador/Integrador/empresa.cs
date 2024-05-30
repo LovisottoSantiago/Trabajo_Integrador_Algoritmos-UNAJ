@@ -34,7 +34,14 @@ namespace Integrador
 		
 		// ------------------------------- ASIGNAR UN GRUPO A LA OBRA ------------------------------- //
 		
-		public void asignarGrupo(grupoObreros y){
+		public void asignarGrupo(grupoObreros y, int codigo){
+			
+			foreach (grupoObreros x in _empresaGruposAsignado) {
+				if (x._codigoGrupo == codigo){
+					throw new misExcepciones.excepcionCodigoRepetido("Ya existe un grupo con ese código");
+				}
+			}
+			// Si no repite el código, que se asigne			
 			empresaGruposAsignado.Add(y);
 		}
 		
@@ -79,8 +86,9 @@ namespace Integrador
 					Console.WriteLine("Se contrató a " + obreroContratado._apellido + " " + obreroContratado._nombre + ", legajo: " + obreroContratado._legajo + " con éxito.");
 					Console.WriteLine("Formará parte del grupo: " + y._codigoGrupo + ".");
 					return;						
-					}
+					}					
 				}
+			throw new misExcepciones.excepcionCodigoNoExiste("El codigo ingresado es incorrecto");
 		}
 		
 		
@@ -109,6 +117,7 @@ namespace Integrador
 						return;						
 					}
 				}
+			throw new misExcepciones.excepcionCodigoNoExiste("El codigo ingresado es incorrecto");
 		}
 
 
@@ -195,7 +204,7 @@ namespace Integrador
 						}						
 					}
 				}
-				Console.WriteLine("No existe esa obra...");
+				throw new misExcepciones.excepcionCodigoNoExiste("El codigo ingresado es incorrecto");
 	       }
 		}
 		
@@ -226,7 +235,7 @@ namespace Integrador
 				}
 				
 			}
-			
+			throw new misExcepciones.excepcionCodigoNoExiste("El codigo ingresado es incorrecto");
 		} 
 		
 		
