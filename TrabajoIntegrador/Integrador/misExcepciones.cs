@@ -33,5 +33,12 @@ namespace Integrador
 			public excepcionEstadoInvalido(string Message) : base(Message) {}
 		}
 		
+		
+		// SI EL GRUPO YA TIENE UN JEFE ASIGNADO
+		public class excepcionJefeAsignado : Exception
+		{
+			public excepcionJefeAsignado(string Message) : base(Message) {}
+		}
+		
 	}
 }

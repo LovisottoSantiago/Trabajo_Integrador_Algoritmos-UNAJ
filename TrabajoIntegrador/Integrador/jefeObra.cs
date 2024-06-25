@@ -39,8 +39,6 @@ namespace Integrador
 			jefeGrupoAsignado[0] = (grupoAsignado);
 		}
 		
-		
-
 		// --- FIN --- //		
 	}
 }

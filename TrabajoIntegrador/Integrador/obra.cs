@@ -73,15 +73,14 @@ namespace Integrador
 		}
 		
 		
-		// ------------------------------- ELIMINAR JEFE ------------------------------- //
+		// ------------------------------- ELIMINAR JEFE (desvincularlo de la obra) ------------------------------- //
 		
-		public void eliminarJefe(){
+		public void eliminarJefe(int legajoJefe){
 			nombreJefe = null;
 			legajoJefe = 0;
 			Console.WriteLine("El jefe fue despedido");
 		}
 			
-		
 		
 		// ------------------------------- VER JEFE ------------------------------- //				
 		
@@ -104,7 +103,6 @@ namespace Integrador
 		}
 		
 		
-		
 		// ------------------------------- MODIFICAR ESTADO DE UNA OBRA ------------------------------- //
 		
 		public void modificarEstado(){
@@ -118,9 +116,7 @@ namespace Integrador
 			else {
 				Console.WriteLine("Valor fuera del rango.");
 			}
-			
 		}
-		
 		
 		
 		// ------------------------------- CONSULTAR SI SE REPITE EL CODIGO INTERNO ------------------------------- //

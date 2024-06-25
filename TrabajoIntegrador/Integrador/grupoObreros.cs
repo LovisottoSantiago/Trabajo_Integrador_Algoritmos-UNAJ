@@ -40,7 +40,6 @@ namespace Integrador
 		}
 		
 		
-		
 		// ------------------------------- ELIMINAR UN OBRERO ------------------------------- //
 		
 		public void eliminarObrero(int legajo){	
@@ -57,7 +56,6 @@ namespace Integrador
 			  }
     		Console.WriteLine("No se encontró ningún obrero con el legajo " + legajo + ".");
 		}
-		
 		
 		
 		// ------------------------------- VISUALIZAR UN OBRERO ------------------------------- //
@@ -78,13 +76,11 @@ namespace Integrador
 		}
 		
 		
-		
 		// ------------------------------- VER LA CANTIDAD DE OBREROS ------------------------------- //
 		
 		public void cantidadObreros(){
 			Console.WriteLine("La cantidad de obreros es: " + listaObreros.Count);
 		}		
-		
 		
 		
 		// ------------------------------- MOSTRAR A TODOS LOS OBREROS ------------------------------- //
@@ -96,13 +92,11 @@ namespace Integrador
 		}
 		
 		
-		
 		// ------------------------------- VERIFICAR EL LEGAJO ------------------------------- //
 		
 		public bool verificarLegajo(int legajo){
 			foreach (obrero y in listaObreros) {
 				if (y._legajo == legajo){
-					Console.WriteLine("El legajo está ocupado");
 		            return false;
 		        }
 		    }
@@ -110,13 +104,11 @@ namespace Integrador
 		}
 		
 		
-		
 		// ------------------------------- ASIGNAR OBRA AL GRUPO ------------------------------- //
 		
 		public void asignarObra(obra obraParaAsignar){
 			 _obraAsignadaGrupo = obraParaAsignar._codigoInterno;
 		}
-		
 		
 		
 		// --- FIN --- //

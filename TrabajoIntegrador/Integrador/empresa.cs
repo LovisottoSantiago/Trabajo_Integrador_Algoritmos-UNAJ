@@ -5,38 +5,53 @@ namespace Integrador
 {
 	public class empresa
 	{
-		private ArrayList obrasEnEjecucion;
+		public ArrayList obrasEnEjecucion;
 		private ArrayList obrasFinalizadas;
 		private ArrayList empresaGruposAsignado; // TODOS LOS GRUPOS
 		
-		public empresa(ArrayList obrasEnEjecucion, ArrayList obrasFinalizadas)
+		public empresa()
 		{	
-			this.obrasEnEjecucion = obrasEnEjecucion;
-			this.obrasFinalizadas = obrasFinalizadas;
+			obrasEnEjecucion = new ArrayList();
+			obrasFinalizadas = new ArrayList();
 			empresaGruposAsignado = new ArrayList();
 		}
 		
-		public ArrayList _obrasEnEjecucion{
+		public ArrayList _obrasEnEjecucion{ //defino una instancia para visualizar su dato, pero no sobreescribirlo
 			get {return obrasEnEjecucion;}
-			set {obrasEnEjecucion = value;}
-		}
-		
-		public ArrayList _obrasFinalizadas{
-			get {return obrasFinalizadas;}
-			set {obrasFinalizadas = value;}
-		}
-		
-		public ArrayList _empresaGruposAsignado{
-			get {return empresaGruposAsignado;}
-			set {empresaGruposAsignado = value;}
+			set {}
 		}
 		
 		
-		// ------------------------------- ASIGNAR UN GRUPO A LA OBRA ------------------------------- //
+
+		// ------------------------------- AGREGAR OBRA A LA EMPRESA (corregido) ------------------------------- //
+        public void agregarObraEmpresa(obra x)
+        {
+        	if (x._estadoDeAvance < 100){
+        		obrasEnEjecucion.Add(x);	
+        	}
+        	else if (x._estadoDeAvance < 0 || x._estadoDeAvance > 100){
+        		throw new misExcepciones.excepcionEstadoInvalido("Ocurrió un error");
+        	}
+        	else {
+        		obrasFinalizadas.Add(x);
+        	}
+        }
 		
+        
+		// ------------------------------- VERIFICAR EL LEGAJO ------------------------------- //
+		public void verificarLegajo(int legajo){
+			 foreach (grupoObreros y in empresaGruposAsignado) {
+				if (y.verificarLegajo(legajo) == false) { // Invoca la funcion creada en grupoObreros
+							throw new misExcepciones.excepcionCodigoNoExiste("Legajo ocupado");
+				}
+		     }
+		}
+								
+				
+		// ------------------------------- AGREGAR GRUPO A LA EMPRESA (corregido) ------------------------------- //
 		public void asignarGrupo(grupoObreros y, int codigo){
 			
-			foreach (grupoObreros x in _empresaGruposAsignado) {
+			foreach (grupoObreros x in empresaGruposAsignado) {
 				if (x._codigoGrupo == codigo){
 					throw new misExcepciones.excepcionCodigoRepetido("Ya existe un grupo con ese código");
 				}
@@ -46,45 +61,13 @@ namespace Integrador
 		}
 		
 		
-		
-		// ------------------------------- CONTRATAR UN OBRERO Y ASIGNARLO A UNA OBRA ------------------------------- //
-		
-		public void contratarObrero(){
-			Console.Write("Ingrese el nombre: ");
-	        string nombre = Console.ReadLine();
-	        Console.Write("Ingrese el apellido: ");
-	        string apellido = Console.ReadLine();
-	        Console.Write("Ingrese el DNI: ");
-	        string dni = Console.ReadLine();
-	        Console.Write("Ingrese el legajo: ");
-	        int legajo = Convert.ToInt32(Console.ReadLine());
-	        
-	        foreach (grupoObreros y in _empresaGruposAsignado) {
-					if (y.verificarLegajo(legajo) == false) { // Invoca la funcion creada en grupoObreros
-						return;
-					}
-	        	}  
-	        Console.Write("Ingrese el sueldo: ");
-	        double sueldo = Convert.ToDouble(Console.ReadLine());
-	        Console.Write("Ingrese el cargo [Capataz, Albañil, Peón, Plomero, Electricista]: ");
-	        string cargo = Console.ReadLine();
-	        
-	        obrero obreroContratado = new obrero(nombre, apellido, dni, legajo, sueldo, cargo);
-	        
-			//Me muestra las obras en ejecucion
-			foreach (obra x in _obrasEnEjecucion) {
-				Console.WriteLine("Codigo interno de la obra es de: " + x._codigoInterno + ", " + x._tipoObra + ".");
-			}
-			
-			Console.Write("Ingresar codigo: "); 
-			int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());
+		// ------------------------------- ASIGNAR A UN OBRERO A LA EMPRESA (corregido) ------------------------------- //
+		public void asignarObreroEmpresa(obrero o, int preguntaCodigoInterno){			
 
-				foreach (grupoObreros y in _empresaGruposAsignado) {
+				foreach (grupoObreros y in empresaGruposAsignado) {
 				
 					if (preguntaCodigoInterno == y._obraAsignadaGrupo){
-					y.agregarObrero(obreroContratado); // Invoca la funcion creada en grupoObreros
-					Console.WriteLine("Se contrató a " + obreroContratado._apellido + " " + obreroContratado._nombre + ", legajo: " + obreroContratado._legajo + " con éxito.");
-					Console.WriteLine("Formará parte del grupo: " + y._codigoGrupo + ".");
+					y.agregarObrero(o); // Invoca la funcion creada en grupoObreros
 					return;						
 					}					
 				}
@@ -92,22 +75,12 @@ namespace Integrador
 		}
 		
 		
-		
-		// ------------------------------- DESPEDIR UN OBRERO ------------------------------- //
-		
-		public void despedirObrero(){
-			//Me muestra las obras en ejecucion
-			foreach (obra x in _obrasEnEjecucion) {
-				Console.WriteLine("Codigo interno de la obra es de: " + x._codigoInterno + ", " + x._tipoObra + ".");
-			}
-			
-			Console.Write("Ingresar codigo: "); 
-			int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());
+		// ------------------------------- DESPEDIR UN OBRERO (corregido) ------------------------------- //
+		public void despedirObrero(int legajoInterno){
 
-			foreach (grupoObreros y in _empresaGruposAsignado) {
+			foreach (grupoObreros y in empresaGruposAsignado) {
 				
-				if (preguntaCodigoInterno == y._obraAsignadaGrupo){
-					
+				if (legajoInterno == y._obraAsignadaGrupo){					
 						y.verObreros();
 						Console.WriteLine("\n--------Escriba 0 para volver atrás--------\n");	
 						Console.Write("Ingresar legajo del obrero a eliminar: ");
@@ -125,7 +98,7 @@ namespace Integrador
 		// ------------------------------- VER A TODOS LOS OBREROS ------------------------------- //
 		
 		public void verTodosLosObreros(){
-			foreach (grupoObreros x in _empresaGruposAsignado) {
+			foreach (grupoObreros x in empresaGruposAsignado) {
 				Console.WriteLine("\nObra: " + x._obraAsignadaGrupo + ".");
 				x.verObreros(); // Invoca la funcion creada en grupoObreros
 			}
@@ -137,7 +110,7 @@ namespace Integrador
 		
 		public void verTodosLosJefes(){
 			Console.WriteLine("\nJefes en obras en ejecucion:");
-			foreach (obra y in _obrasEnEjecucion) {
+			foreach (obra y in obrasEnEjecucion) {
 				if (y.ExisteUnJefe() == true){ // Invoca la funcion creada en obra
 					y.verJefeAsignado(); // Invoca la funcion creada en obra
 				}
@@ -146,179 +119,107 @@ namespace Integrador
 		
 		
 		
-	// ------------------------------- CONTRATAR UN JEFE ------------------------------- //
+	// ------------------------------- CONTRATAR UN JEFE (corregido) ------------------------------- //
 	
-		public void contratarJefe(){
-			Console.Write("Ingrese el nombre: ");
-	        string nombre = Console.ReadLine();
-	        Console.Write("Ingrese el apellido: ");
-	        string apellido = Console.ReadLine();
-	        Console.Write("Ingrese el DNI: ");
-	        string dni = Console.ReadLine();	
-	        Console.Write("Ingrese el legajo: ");
-	        int legajo = Convert.ToInt32(Console.ReadLine());	        
-	        
-	        foreach (grupoObreros y in _empresaGruposAsignado) {
-					if (y.verificarLegajo(legajo) == false) { // Invoca la funcion creada en grupoObreros
-						return;
-					}
-	        	}
-	        
-	        Console.Write("Ingrese el sueldo: ");
-	        double sueldo = Convert.ToDouble(Console.ReadLine());	
-	        string cargo = "Jefe";			
-	        Console.Write("Ingrese la bonificación: ");
-	        double bonificacion = Convert.ToDouble(Console.ReadLine());
-	        
-	        // Una vez que termino de Crear al Jefe
-	        bool condicion = true;
-	       
-	        while (condicion){
-		        Console.WriteLine("------Lista de obras------"); 
-		        foreach (obra x in _obrasEnEjecucion) {
-					Console.WriteLine(x._codigoInterno + ", " + x._tipoObra + ".");
-				}
+		public void contratarJefe(jefeObra jefeMetodo, int preguntaCodigoInterno){  
 				
-				Console.Write("\nIngresar codigo: "); 
-				int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());      
-				
-				foreach (obra g in _obrasEnEjecucion) {
+				foreach (obra g in obrasEnEjecucion) {
 					if (preguntaCodigoInterno == g._codigoInterno) {
 						
 						if (g.ExisteUnJefe() == true){ // Invoca la funcion creada en obra, que devuelve un bool
-			        		Console.WriteLine("El grupo ya tiene un jefe asignado");
-			        		return;
+			        		throw new misExcepciones.excepcionJefeAsignado("El grupo ya tiene un jefe asignado");
 			        	}
 						else {
-							Console.WriteLine("El grupo está libre");
-							jefeObra jefeMetodo = new jefeObra(nombre, apellido, dni, legajo, sueldo, cargo, bonificacion);
 							g.asignarJefe(jefeMetodo); // Invoca la funcion creada en obra
-							Console.WriteLine("Se asignó el jefe " + g._nombreJefe + ", con éxito a la obra " + g._tipoObra + ".");							
 							
-							
-							foreach (grupoObreros grupo in _empresaGruposAsignado) {
+							foreach (grupoObreros grupo in empresaGruposAsignado) {
 								jefeMetodo.asignarGrupo(grupo); // Invoca la funcion creada en jefeObra
 							}
-
+							Console.WriteLine("Se asignó con éxito al jefe " + jefeMetodo._nombre + " " + jefeMetodo._apellido + ".");
 							return;							
 						}						
 					}
-				}
-				throw new misExcepciones.excepcionCodigoNoExiste("El codigo ingresado es incorrecto");
+				
 	       }
+				throw new misExcepciones.excepcionCodigoNoExiste("El codigo ingresado es incorrecto");
 		}
 		
-
 		
-		// ------------------------------- DESPEDIR JEFE ------------------------------- //
+		// ------------------------------- DESPEDIR JEFE (corregido) ------------------------------- //
 		
-		public void despedirJefe(){
-			Console.WriteLine("------Lista de obras------"); 
-		    //Me muestra las obras en ejecucion
-			foreach (obra x in _obrasEnEjecucion) {
-				Console.WriteLine("Codigo interno de la obra es de: " + x._codigoInterno + ", " + x._tipoObra + ".");
-			}		    		    
-			
-			Console.Write("Ingresar codigo: "); 
-			int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());
+		public void despedirJefe(int preguntaCodigoInterno){
 
-			foreach (obra y in _obrasEnEjecucion) {
+			foreach (obra y in obrasEnEjecucion) {
 				if (y.ExisteUnJefe() == true){ // Invoca la funcion creada en obra
 					if (preguntaCodigoInterno == y._codigoInterno){
-						y.verJefeAsignado(); // Invoca la funcion creada en obra
-						y.eliminarJefe(); // Invoca la funcion creada en obra
+						y.eliminarJefe(y._legajoJefe); // Invoca la funcion creada en obra
 						return;
 					}
 				}
 				else {
 					Console.WriteLine("No existe un jefe"); 
+					return;
 				}
 				
 			}
 			throw new misExcepciones.excepcionCodigoNoExiste("El codigo ingresado es incorrecto");
 		} 
-		
-		
-		
-		// ------------------------------- AGREGAR OBRA A LA EMPRESA ------------------------------- //
-		
-		public void agregarObraEmpresa(obra obraParaAgregar){
-			
-			if (obraParaAgregar._estadoDeAvance < 100){
-				_obrasEnEjecucion.Add(obraParaAgregar);
-			}
-			else {
-				_obrasFinalizadas.Add(obraParaAgregar);
-			}
-		}
-		
-		
+				
 
 		// ------------------------------- CANTIDAD DE OBRAS EN EJECUCIÓN ------------------------------- //
 		
 		public void cantidadObrasEnEjecucion(){
 			int cantidad = 0;
-			foreach (obra x in _obrasEnEjecucion) {
+			foreach (obra x in obrasEnEjecucion) {
 				cantidad ++;
 			}
 			Console.WriteLine(cantidad);
 		}
 		
-		
-		
+				
 		// ------------------------------- CANTIDAD DE OBRAS FINALIZADAS ------------------------------- //
 		
 		public void cantidadObrasFinalizadas(){
 			int cantidad = 0;
-			foreach (obra x in _obrasFinalizadas) {
+			foreach (obra x in obrasFinalizadas) {
 				cantidad ++;
 			}
 			Console.WriteLine(cantidad);
 		}
-		
-		
+				
 		
 		// ------------------------------- CANTIDAD DE OBRAS EN 'REMODELACION' SIN FINALIZAR ------------------------------- //
 		
 		public void porcentajeRemodelacion(){
 			//	LAS OBRAS EN REMODELACION
 			int cantidadRemodelacion = 0;
-			foreach (obra y in _obrasEnEjecucion) {
+			foreach (obra y in obrasEnEjecucion) {
 				if ((y._tipoObra).ToUpper() == "REMODELACION"){
 					cantidadRemodelacion ++;
 				}
 			}                                
 			// TODAS LAS OBRAS
 			int cantidadObras = 0;
-			foreach (obra x in _obrasEnEjecucion) {
+			foreach (obra x in obrasEnEjecucion) {
 				cantidadObras ++;
 			}			
 			int cuenta = (cantidadRemodelacion * 100) / cantidadObras;			
 			Console.WriteLine("El porcentaje de obras en remodelacion sin finalizar es de " + cuenta + "%.");
 		}
+				
 		
+		// ------------------------------- MODIFICAR ESTADO DE UNA OBRA DENTRO DE LA EMPRESA (corregido) ------------------------------- //
 		
-		
-		// ------------------------------- MODIFICAR ESTADO DE OBRA ------------------------------- //
-		
-		public void ObraModificarEstado(){
-			Console.WriteLine("------Lista de obras------"); 
-		    //Me muestra las obras en ejecucion
-			foreach (obra x in _obrasEnEjecucion) {
-				Console.WriteLine("Codigo interno de la obra es de: " + x._codigoInterno + ", " + x._tipoObra + ".");
-			}		    		    
+		public void ObraModificarEstado(int preguntaCodigoInterno){
 			
-			Console.Write("Ingresar codigo: "); 
-			int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());
-			
-			foreach (obra y in _obrasEnEjecucion) {
+			foreach (obra y in obrasEnEjecucion) {
 				
 				if (preguntaCodigoInterno == y._codigoInterno){
 					y.modificarEstado(); // Invoca la funcion creada en obra
 					
 					if (y._estadoDeAvance == 100){
-						_obrasFinalizadas.Add(y); // Si el estado pasa a ser 100%, se agrega a obrasFinalizadas
-						_obrasEnEjecucion.Remove(y); // y se elimina de obrasEnEjecucion
+						obrasFinalizadas.Add(y); // Si el estado pasa a ser 100%, se agrega a obrasFinalizadas
+						obrasEnEjecucion.Remove(y); // y se elimina de obrasEnEjecucion
 						return;
 					}
 					else {
@@ -334,57 +235,19 @@ namespace Integrador
 		// ------------------------------- VER LISTADO DE OBRAS EN EJECUCION ------------------------------- //
 		
 		public void listadoObrasEnEjecucion(){
-			foreach (obra x in _obrasEnEjecucion) {
+			foreach (obra x in obrasEnEjecucion) {
 				Console.WriteLine(x._tipoObra + ", codigo " + x._codigoInterno + ", avance " + x._estadoDeAvance + "%, propietario: " + x._nombrePropietario + ", jefe de obra asignado: " + x._nombreJefe + ".\n");
 			}	
 		}
-		
 		
 		
 		// ------------------------------- VER LISTADO DE OBRAS FINALIZADAS ------------------------------- //
 		
 		public void listadoObrasFinalizadas(){
-			foreach (obra x in _obrasFinalizadas) {
+			foreach (obra x in obrasFinalizadas) {
 				Console.WriteLine(x._tipoObra + ", codigo " + x._codigoInterno + ", avance " + x._estadoDeAvance + "%, propietario: " + x._nombrePropietario + ", jefe de obra asignado: " + x._nombreJefe + ".\n");
 			}	
 		}
-		
-		
-		
-		// ------------------------------- CREAR OBRA ------------------------------- //
-		
-		public obra crearObra(){
-			Console.Write("Ingresar nombre del propietario: ");
-			string nombrePropietario = Console.ReadLine();
-			Console.Write("Ingresar DNI del propietario: ");
-			string dniPropietario = Console.ReadLine();
-			Console.Write("Ingresar codigo interno: ");
-			int codigoInterno = Convert.ToInt32(Console.ReadLine());
-			
-			foreach (obra y in _obrasEnEjecucion) {
-				if (y._codigoInterno == codigoInterno){
-					throw new misExcepciones.excepcionCodigoRepetido("Ese codigo ya existe");
-				}
-			} 
-			
-			Console.Write("Ingresar tipo de obra: ");
-			string tipoObra = Console.ReadLine();
-			Console.Write("Ingresar estado de avance [0 - 100]: ");
-			double estadoDeAvance = Convert.ToDouble(Console.ReadLine());
-			if (estadoDeAvance > 100) {
-				throw new misExcepciones.excepcionEstadoInvalido("Opcion incorrecta");
-			}
-			else if (estadoDeAvance < 0) {
-				throw new misExcepciones.excepcionEstadoInvalido("Opcion incorrecta");
-			}
-			Console.Write("Ingresar costo: ");
-			double costo = Convert.ToDouble(Console.ReadLine());
-			
-			obra nuevaObra = new obra(nombrePropietario, dniPropietario, codigoInterno, tipoObra, estadoDeAvance, costo);					
-			return nuevaObra;
-		}
-		
-		
 		
 		// --- FIN --- //		
 	}
