@@ -77,8 +77,7 @@ namespace Integrador
 		
 		public void eliminarJefe(int legajoJefe){
 			nombreJefe = null;
-			legajoJefe = 0;
-			Console.WriteLine("El jefe fue despedido");
+			legajoJefe = 0;			
 		}
 			
 		
@@ -92,7 +91,6 @@ namespace Integrador
 		
 		
 		// ------------------------------- CONSULTAR SI EXISTE UN JEFE ------------------------------- //
-		
 		public bool ExisteUnJefe(){
 			if (nombreJefe != null){
 				return true;

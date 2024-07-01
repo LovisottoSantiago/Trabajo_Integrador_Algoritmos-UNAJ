@@ -21,7 +21,7 @@ namespace Integrador
 			public excepcionAsignarGrupo(string Message) : base(Message) {}
 		}
 		
-		// SI ELIJO UNA OBRA CON UN VALOR QUE NO EXISTE
+		// SI ELIJO UNA CLASE CON UN VALOR QUE NO EXISTE
 		public class excepcionCodigoNoExiste : Exception
 		{
 			public excepcionCodigoNoExiste(string Message) : base(Message) {}

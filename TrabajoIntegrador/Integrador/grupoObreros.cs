@@ -50,11 +50,10 @@ namespace Integrador
 				}
 				else if (x._legajo == legajo){
 			    	listaObreros.Remove(x); //Si el legajo del obrero coincide, se elimina al obrero de la lista
-			        Console.WriteLine("Obrero " + x._nombre + " eliminado correctamente.");
 			        return; // Salir del método después de eliminar al obrero
 			    }
 			  }
-    		Console.WriteLine("No se encontró ningún obrero con el legajo " + legajo + ".");
+    		throw new misExcepciones.excepcionCodigoNoExiste("No existe un obrero con ese legajo");
 		}
 		
 		
@@ -72,19 +71,17 @@ namespace Integrador
 					return;
 				}
 			}
-			Console.WriteLine("No se encontró ningun obrero con el legajo " + legajo + ".");
+			throw new misExcepciones.excepcionCodigoNoExiste("No existe un obrero con ese legajo");
 		}
 		
 		
 		// ------------------------------- VER LA CANTIDAD DE OBREROS ------------------------------- //
-		
 		public void cantidadObreros(){
 			Console.WriteLine("La cantidad de obreros es: " + listaObreros.Count);
 		}		
 		
 		
-		// ------------------------------- MOSTRAR A TODOS LOS OBREROS ------------------------------- //
-		
+		// ------------------------------- MOSTRAR A TODOS LOS OBREROS ------------------------------- //		
 		public void verObreros(){
 			foreach (obrero x in listaObreros) {
 				Console.WriteLine(x._apellido + " " + x._nombre + ", legajo: " + x._legajo + ".");
@@ -93,7 +90,6 @@ namespace Integrador
 		
 		
 		// ------------------------------- VERIFICAR EL LEGAJO ------------------------------- //
-		
 		public bool verificarLegajo(int legajo){
 			foreach (obrero y in listaObreros) {
 				if (y._legajo == legajo){
@@ -105,7 +101,6 @@ namespace Integrador
 		
 		
 		// ------------------------------- ASIGNAR OBRA AL GRUPO ------------------------------- //
-		
 		public void asignarObra(obra obraParaAsignar){
 			 _obraAsignadaGrupo = obraParaAsignar._codigoInterno;
 		}

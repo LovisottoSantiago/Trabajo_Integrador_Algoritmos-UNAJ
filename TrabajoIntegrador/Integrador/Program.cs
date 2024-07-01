@@ -174,15 +174,19 @@ namespace Integrador
 						case 2:
 							Console.WriteLine("--------------- ELIMINAR A UN OBRERO ---------------\n");
 							try {
+								int codigoObra = MostrarListaObras(miEmpresa);		
+								miEmpresa.verTodosLosObreros(codigoObra);
 								
-								int codigo = MostrarListaObras(miEmpresa);
-								miEmpresa.despedirObrero(codigo);
-								Console.WriteLine("Obrero despedido");
+								Console.Write("Ingrese el legajo: ");
+								int legajo = Convert.ToInt32(Console.ReadLine());
+								
+								miEmpresa.despedirObrero(codigoObra, legajo); //recibe 2 parametros
+								Console.WriteLine("Obrero despedido correctamente");
 																																								
 							}
-							catch (misExcepciones.excepcionCodigoNoExiste u){
-								Console.WriteLine(u.Message);
-							}
+							catch (misExcepciones.excepcionCodigoNoExiste a){ //si no existe la obra o el legajo
+								Console.WriteLine(a.Message);
+							}							
 							break;
 
 						// OPCION 3: CONTRATAR UN JEFE DE OBRA
@@ -192,6 +196,7 @@ namespace Integrador
 								jefeObra C = funcionContratarJefe(miEmpresa);
 								int codigo = MostrarListaObras(miEmpresa);
 								miEmpresa.contratarJefe(C, codigo);
+								Console.WriteLine("¡Jefe Contratado!");
 							}
 							catch (misExcepciones.excepcionCodigoNoExiste u){
 								Console.WriteLine(u.Message);
@@ -232,7 +237,8 @@ namespace Integrador
 									switch (opcionSubmenu) {
 										case "a":
 											Console.WriteLine("------------------------------ Ver listado de obreros ------------------------------\n");
-											miEmpresa.verTodosLosObreros();
+											int nObra = MostrarListaObras(miEmpresa);
+											miEmpresa.verTodosLosObreros(nObra);
 											break;
 											
 										case "b":
@@ -242,7 +248,7 @@ namespace Integrador
 											
 										case "c":
 											Console.WriteLine("------------------------------ Ver listado de obras finalizadas ------------------------------\n");
-											miEmpresa.listadoObrasFinalizadas();
+											miEmpresa.listadoObrasFinalizadas();											
 											break;
 											
 										case "d":
@@ -252,7 +258,8 @@ namespace Integrador
 											
 										case "e":
 											Console.WriteLine("-------------- Ver porcentaje de obras de remodelación sin finalizar --------------\n");
-										    miEmpresa.porcentajeRemodelacion();
+										    int a = miEmpresa.porcentajeRemodelacion();
+										    Console.WriteLine("El porcentaje de obras en remodelacion sin finalizar es de " + a + "%.");
 											break;
 											
 										case "x":
@@ -293,6 +300,7 @@ namespace Integrador
 							try {
 								int codigo = MostrarListaObras(miEmpresa);
 								miEmpresa.despedirJefe(codigo);
+								Console.WriteLine("¡Jefe despedido!");
 							}
 							catch (misExcepciones.excepcionCodigoNoExiste u){
 								Console.WriteLine(u.Message);

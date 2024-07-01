@@ -76,40 +76,32 @@ namespace Integrador
 		
 		
 		// ------------------------------- DESPEDIR UN OBRERO (corregido) ------------------------------- //
-		public void despedirObrero(int legajoInterno){
+		public void despedirObrero(int legajoInterno, int legajoObrero){
 
-			foreach (grupoObreros y in empresaGruposAsignado) {
-				
-				if (legajoInterno == y._obraAsignadaGrupo){					
-						y.verObreros();
-						Console.WriteLine("\n--------Escriba 0 para volver atrás--------\n");	
-						Console.Write("Ingresar legajo del obrero a eliminar: ");
-						int inputObreroEliminar = Convert.ToInt32(Console.ReadLine());
-											
-						y.eliminarObrero(inputObreroEliminar); // Invoca la funcion creada en grupoObreros
+			foreach (grupoObreros y in empresaGruposAsignado) {				
+				if (legajoInterno == y._obraAsignadaGrupo){																
+						y.eliminarObrero(legajoObrero); // Invoca la funcion creada en grupoObreros
 						return;						
 					}
 				}
 			throw new misExcepciones.excepcionCodigoNoExiste("El codigo ingresado es incorrecto");
 		}
 
-
 		
-		// ------------------------------- VER A TODOS LOS OBREROS ------------------------------- //
-		
-		public void verTodosLosObreros(){
+		// ------------------------------- VER A TODOS LOS OBREROS ------------------------------- //		
+		public void verTodosLosObreros(int nObra){
 			foreach (grupoObreros x in empresaGruposAsignado) {
-				Console.WriteLine("\nObra: " + x._obraAsignadaGrupo + ".");
-				x.verObreros(); // Invoca la funcion creada en grupoObreros
+				if (nObra == x._obraAsignadaGrupo){
+					x.verObreros(); // Invoca la funcion creada en grupoObreros
+					return;				
+				}
 			}
+			throw new misExcepciones.excepcionCodigoNoExiste("Esa obra no existe");
 		}
-		
-		
+				
 		
 		// ------------------------------- VER A TODOS LOS JEFES ------------------------------- //
-		
 		public void verTodosLosJefes(){
-			Console.WriteLine("\nJefes en obras en ejecucion:");
 			foreach (obra y in obrasEnEjecucion) {
 				if (y.ExisteUnJefe() == true){ // Invoca la funcion creada en obra
 					y.verJefeAsignado(); // Invoca la funcion creada en obra
@@ -119,97 +111,80 @@ namespace Integrador
 		
 		
 		
-	// ------------------------------- CONTRATAR UN JEFE (corregido) ------------------------------- //
-	
-		public void contratarJefe(jefeObra jefeMetodo, int preguntaCodigoInterno){  
+		// ------------------------------- CONTRATAR UN JEFE (corregido) ------------------------------- //
+		public void contratarJefe(jefeObra jefe, int preguntaCodigoInterno){  
 				
-				foreach (obra g in obrasEnEjecucion) {
-					if (preguntaCodigoInterno == g._codigoInterno) {
-						
-						if (g.ExisteUnJefe() == true){ // Invoca la funcion creada en obra, que devuelve un bool
-			        		throw new misExcepciones.excepcionJefeAsignado("El grupo ya tiene un jefe asignado");
-			        	}
-						else {
-							g.asignarJefe(jefeMetodo); // Invoca la funcion creada en obra
-							
-							foreach (grupoObreros grupo in empresaGruposAsignado) {
-								jefeMetodo.asignarGrupo(grupo); // Invoca la funcion creada en jefeObra
-							}
-							Console.WriteLine("Se asignó con éxito al jefe " + jefeMetodo._nombre + " " + jefeMetodo._apellido + ".");
-							return;							
-						}						
+			foreach (obra g in obrasEnEjecucion) {
+				if (preguntaCodigoInterno == g._codigoInterno) {
+					if (g.ExisteUnJefe() == false){ // Si no existe un jefe en esa obra
+						g.asignarJefe(jefe); // asigno un jefe
+						foreach (grupoObreros grupo in empresaGruposAsignado) {
+							jefe.asignarGrupo(grupo); // le asigno un grupo a ese jefe
+						}							
+						return;							
+					}	
+					else{
+						throw new misExcepciones.excepcionCodigoNoExiste("Esa obra ya tiene un jefe asignado");
 					}
-				
-	       }
-				throw new misExcepciones.excepcionCodigoNoExiste("El codigo ingresado es incorrecto");
+				}							
+	       	}
+			throw new misExcepciones.excepcionCodigoNoExiste("Esa obra no existe");
 		}
 		
 		
 		// ------------------------------- DESPEDIR JEFE (corregido) ------------------------------- //
-		
 		public void despedirJefe(int preguntaCodigoInterno){
-
+			
 			foreach (obra y in obrasEnEjecucion) {
-				if (y.ExisteUnJefe() == true){ // Invoca la funcion creada en obra
-					if (preguntaCodigoInterno == y._codigoInterno){
+				if (preguntaCodigoInterno == y._codigoInterno){ // Se fija que exista un jefe
+					if (y.ExisteUnJefe() == true){
 						y.eliminarJefe(y._legajoJefe); // Invoca la funcion creada en obra
 						return;
 					}
-				}
-				else {
-					Console.WriteLine("No existe un jefe"); 
-					return;
-				}
-				
+					else{
+						throw new misExcepciones.excepcionCodigoNoExiste("No existe un jefe en esa obra");
+					}
+				}				
 			}
-			throw new misExcepciones.excepcionCodigoNoExiste("El codigo ingresado es incorrecto");
+			throw new misExcepciones.excepcionCodigoNoExiste("La obra no existe");
 		} 
 				
 
 		// ------------------------------- CANTIDAD DE OBRAS EN EJECUCIÓN ------------------------------- //
-		
-		public void cantidadObrasEnEjecucion(){
+		public int cantidadObrasEnEjecucion(){
 			int cantidad = 0;
 			foreach (obra x in obrasEnEjecucion) {
 				cantidad ++;
 			}
-			Console.WriteLine(cantidad);
+			return cantidad;
 		}
 		
 				
 		// ------------------------------- CANTIDAD DE OBRAS FINALIZADAS ------------------------------- //
-		
-		public void cantidadObrasFinalizadas(){
+		public int cantidadObrasFinalizadas(){
 			int cantidad = 0;
 			foreach (obra x in obrasFinalizadas) {
 				cantidad ++;
 			}
-			Console.WriteLine(cantidad);
+			return cantidad;
 		}
 				
 		
 		// ------------------------------- CANTIDAD DE OBRAS EN 'REMODELACION' SIN FINALIZAR ------------------------------- //
-		
-		public void porcentajeRemodelacion(){
-			//	LAS OBRAS EN REMODELACION
+		public int porcentajeRemodelacion(){
 			int cantidadRemodelacion = 0;
 			foreach (obra y in obrasEnEjecucion) {
 				if ((y._tipoObra).ToUpper() == "REMODELACION"){
 					cantidadRemodelacion ++;
 				}
 			}                                
-			// TODAS LAS OBRAS
-			int cantidadObras = 0;
-			foreach (obra x in obrasEnEjecucion) {
-				cantidadObras ++;
-			}			
-			int cuenta = (cantidadRemodelacion * 100) / cantidadObras;			
-			Console.WriteLine("El porcentaje de obras en remodelacion sin finalizar es de " + cuenta + "%.");
+			int cantidadObras = cantidadObrasEnEjecucion();	
+			int cuenta = (cantidadRemodelacion * 100) / cantidadObras;	
+			return cuenta;
 		}
 				
 		
 		// ------------------------------- MODIFICAR ESTADO DE UNA OBRA DENTRO DE LA EMPRESA (corregido) ------------------------------- //
-		
 		public void ObraModificarEstado(int preguntaCodigoInterno){
 			
 			foreach (obra y in obrasEnEjecucion) {
