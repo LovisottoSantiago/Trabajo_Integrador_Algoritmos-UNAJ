@@ -33,11 +33,12 @@ namespace Integrador
 		}
 		
 
-		// ------------------------------- ASIGNAR UN GRUPO ------------------------------- //		
+		// ------------------------------- ASIGNAR UN GRUPO ------------------------------- //	agregarElemento(Elemento e);	 
 		
-		public void asignarGrupo(grupoObreros grupoAsignado){
-			jefeGrupoAsignado[0] = (grupoAsignado);
+		public void asignarGrupo(grupoObreros grupo){
+			jefeGrupoAsignado[0] = (grupo);
 		}
+		
 		
 		// --- FIN --- //		
 	}

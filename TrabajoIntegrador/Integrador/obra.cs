@@ -103,16 +103,12 @@ namespace Integrador
 		
 		// ------------------------------- MODIFICAR ESTADO DE UNA OBRA ------------------------------- //
 		
-		public void modificarEstado(){
-			Console.WriteLine("El porcentaje de avance de la obra actual es de: " + estadoDeAvance + "%.");
-			Console.Write("Ingresar valor [0 - 100]: ");
-			double modificacion = Convert.ToDouble(Console.ReadLine());
-			if ((modificacion <= 100) && (modificacion >= 0)){
-				estadoDeAvance = modificacion;
-				Console.WriteLine("Porcentaje actualizado: " + estadoDeAvance + "%.");
+		public void modificarEstado(double valor){
+			if ((valor <= 100) && (valor >= 0)){
+				estadoDeAvance = valor;
 			}
 			else {
-				Console.WriteLine("Valor fuera del rango.");
+				throw new misExcepciones.excepcionModificarObra("Valor fuera del rango");
 			}
 		}
 		

@@ -81,8 +81,7 @@ namespace Integrador
 			
 			obra canchaFulbo = new obra("Chiqui Tapia", "15.859.151", 206, "Construcción de cancha", 10, 23500250);
 			
-			
-			// !!! Codigo nuevo por correccion, 22/06/2024
+
 			//crear obra finalizada
 			obra pipiCucu = new obra("John Johnson", "12.356.925", 666, "Jardin Japones", 100, 500000);
 			
@@ -98,13 +97,6 @@ namespace Integrador
 			// ASIGNAR OBRA ROTONDA AL GRUPO 2006
 			Grupo2006.asignarObra(canchaFulbo);
 			
-			
-			// !!! eliminado el 22/06/24
-			// Obras en ejecucion 
-			/*
-			ArrayList listaObrasEjecucion = new ArrayList();			
-			ArrayList listaObrasFinalizadas = new ArrayList();			
-			*/
 			
 			// Creacion de la Empresa
 			empresa miEmpresa = new empresa();
@@ -160,7 +152,7 @@ namespace Integrador
 							Console.WriteLine("--------------- CONTRATAR A UN OBRERO ---------------\n");
 							try {
 								obrero A = IngresarObrero(miEmpresa);
-								int codigo = MostrarListaObras(miEmpresa);
+								int codigo = SeleccionarObra(miEmpresa);
 								miEmpresa.asignarObreroEmpresa(A, codigo);
 								Console.WriteLine("¡Obrero contratado correctamente!");
 							}
@@ -174,7 +166,7 @@ namespace Integrador
 						case 2:
 							Console.WriteLine("--------------- ELIMINAR A UN OBRERO ---------------\n");
 							try {
-								int codigoObra = MostrarListaObras(miEmpresa);		
+								int codigoObra = SeleccionarObra(miEmpresa);		
 								miEmpresa.verTodosLosObreros(codigoObra);
 								
 								Console.Write("Ingrese el legajo: ");
@@ -194,7 +186,7 @@ namespace Integrador
 							Console.WriteLine("--------------- CONTRATAR A UN JEFE DE OBRA ---------------\n");
 							try {
 								jefeObra C = funcionContratarJefe(miEmpresa);
-								int codigo = MostrarListaObras(miEmpresa);
+								int codigo = SeleccionarObra(miEmpresa);
 								miEmpresa.contratarJefe(C, codigo);
 								Console.WriteLine("¡Jefe Contratado!");
 							}
@@ -237,8 +229,13 @@ namespace Integrador
 									switch (opcionSubmenu) {
 										case "a":
 											Console.WriteLine("------------------------------ Ver listado de obreros ------------------------------\n");
-											int nObra = MostrarListaObras(miEmpresa);
-											miEmpresa.verTodosLosObreros(nObra);
+											try{
+												int nObra = SeleccionarObra(miEmpresa);
+												miEmpresa.verTodosLosObreros(nObra);
+											}											
+											catch (misExcepciones.excepcionCodigoNoExiste o) {
+												Console.WriteLine(o.Message);
+											}
 											break;
 											
 										case "b":
@@ -274,7 +271,7 @@ namespace Integrador
 									
 								}
 								catch (FormatException){
-									Console.WriteLine("Porfavor, ingresa una letra");
+									Console.WriteLine("Porfavor, ingresa una valor correcto");
 								}
 							}
 
@@ -285,11 +282,17 @@ namespace Integrador
 						case 5:
 							Console.WriteLine("--------------- MODIFICAR ESTADO DE AVANCE DE UNA OBRA ---------------\n");
 							try {
-								int codigo = MostrarListaObras(miEmpresa);
-								miEmpresa.ObraModificarEstado(codigo);
+								int codigo = SeleccionarObra(miEmpresa);
+								Console.Write("Ingresar valor [0 - 100]: ");
+								double valor = Convert.ToDouble(Console.ReadLine());
+								miEmpresa.ObraModificarEstado(codigo, valor);
+								Console.WriteLine("El estado actualizado es: " + valor + "%.");
 							} 
-							catch (misExcepciones.excepcionModificarObra o) {
+							catch (misExcepciones.excepcionCodigoNoExiste o) {
 								Console.WriteLine(o.Message);
+							}
+							catch (misExcepciones.excepcionModificarObra a){
+								Console.WriteLine(a.Message);
 							}
 							break;
 
@@ -298,7 +301,7 @@ namespace Integrador
 						case 6:
 							Console.WriteLine("--------------- DAR DE BAJA A UN JEFE ---------------\n");
 							try {
-								int codigo = MostrarListaObras(miEmpresa);
+								int codigo = SeleccionarObra(miEmpresa);
 								miEmpresa.despedirJefe(codigo);
 								Console.WriteLine("¡Jefe despedido!");
 							}
@@ -363,11 +366,6 @@ namespace Integrador
 		}
 		
 		
-		
-			// METODOS PARA CORREGIR EL EXCESO DE PERSONALIZACION DE CLASE EMPRESA (correccion de la profesora)
-			// !
-			// !
-			// !
 			// ------------------------------- CARGA DATOS DE OBRERO Y DEVUELVE UN OBRERO------------------------------- //
 			public static obrero IngresarObrero(empresa emp){
 				Console.Write("Ingrese el nombre: ");
@@ -418,7 +416,7 @@ namespace Integrador
 			
 			
 			// ------------------------------- MUESTRA LAS OBRAS Y DEVUELVE UN INT ------------------------------- //
-			public static int MostrarListaObras(empresa emp){
+			public static int SeleccionarObra(empresa emp){
 				Console.WriteLine("------Lista de obras------"); 
 		        foreach (obra x in emp._obrasEnEjecucion) {
 					Console.WriteLine(x._codigoInterno + ", " + x._tipoObra + ".");
@@ -426,7 +424,12 @@ namespace Integrador
 				
 				Console.Write("\nIngresar codigo: "); 
 				int preguntaCodigoInterno = Convert.ToInt32(Console.ReadLine());
-				return preguntaCodigoInterno;				
+				foreach (obra x in emp._obrasEnEjecucion) {
+					if (x._codigoInterno == preguntaCodigoInterno){
+						return preguntaCodigoInterno;
+					}						
+				}
+				throw new misExcepciones.excepcionCodigoNoExiste("Esa obra no existe");
 			}
 		
 
