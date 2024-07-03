@@ -45,10 +45,7 @@ namespace Integrador
 		public void eliminarObrero(int legajo){	
 		
 			foreach (obrero x in listaObreros){ //Recorro todos los obreros de la lista
-				if (legajo == 0){ //Si el legajo es 0, que vuelva para atrás
-					return;
-				}
-				else if (x._legajo == legajo){
+				if (x._legajo == legajo){
 			    	listaObreros.Remove(x); //Si el legajo del obrero coincide, se elimina al obrero de la lista
 			        return; // Salir del método después de eliminar al obrero
 			    }
