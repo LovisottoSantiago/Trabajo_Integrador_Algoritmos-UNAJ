@@ -29,7 +29,6 @@ namespace Integrador
 		
 		public grupoObreros[] _jefeGrupoAsignado {
 			get {return jefeGrupoAsignado;}
-			set {jefeGrupoAsignado = value;}
 		}
 		
 

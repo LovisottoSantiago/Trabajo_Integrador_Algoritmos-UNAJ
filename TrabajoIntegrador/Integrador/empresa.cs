@@ -5,7 +5,7 @@ namespace Integrador
 {
 	public class empresa
 	{
-		public ArrayList obrasEnEjecucion;
+		private ArrayList obrasEnEjecucion;
 		private ArrayList obrasFinalizadas;
 		private ArrayList empresaGruposAsignado; // TODOS LOS GRUPOS
 		
@@ -18,7 +18,6 @@ namespace Integrador
 		
 		public ArrayList _obrasEnEjecucion{ //defino una instancia para visualizar su dato, pero no sobreescribirlo
 			get {return obrasEnEjecucion;}
-			set {}
 		}
 		
 		
@@ -26,7 +25,7 @@ namespace Integrador
 		// ------------------------------- AGREGAR OBRA A LA EMPRESA ------------------------------- //
         public void agregarObraEmpresa(obra x) //void agregarElemento(Elemento e);
         {
-        	if (x._estadoDeAvance < 100){
+        	if (x._estadoDeAvance < 100 && x._estadoDeAvance >= 0){
         		obrasEnEjecucion.Add(x);	
         	}
         	else if (x._estadoDeAvance < 0 || x._estadoDeAvance > 100){

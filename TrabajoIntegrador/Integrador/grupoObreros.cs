@@ -23,7 +23,6 @@ namespace Integrador
 		
 		public ArrayList _listaObreros{
 			get {return listaObreros;}
-			set {listaObreros = value;}
 		}
 		
 		public int _obraAsignadaGrupo{
