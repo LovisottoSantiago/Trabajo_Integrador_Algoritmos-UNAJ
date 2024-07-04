@@ -20,6 +20,14 @@ namespace Integrador
 			get {return obrasEnEjecucion;}
 		}
 		
+		public ArrayList _obrasFinalizadas{ //defino una instancia para visualizar su dato, pero no sobreescribirlo
+			get {return obrasFinalizadas;}
+		}
+		
+		public ArrayList _empresaGruposAsignado{ //defino una instancia para visualizar su dato, pero no sobreescribirlo
+			get {return empresaGruposAsignado;}
+		}
+		
 		
 
 		// ------------------------------- AGREGAR OBRA A LA EMPRESA ------------------------------- //
@@ -149,7 +157,7 @@ namespace Integrador
 			foreach (obra y in obrasEnEjecucion) {
 				if (preguntaCodigoInterno == y._codigoInterno){ // Se fija que exista un jefe
 					if (y.ExisteUnJefe() == true){
-						y.eliminarJefe(y._legajoJefe); // Invoca la funcion creada en obra
+						y.eliminarJefe(); // Invoca la funcion creada en obra
 						return;
 					}
 					else{

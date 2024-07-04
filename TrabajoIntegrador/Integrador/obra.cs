@@ -75,7 +75,7 @@ namespace Integrador
 		
 		// ------------------------------- ELIMINAR JEFE (desvincularlo de la obra) ------------------------------- //
 		
-		public void eliminarJefe(int legajoJefe){
+		public void eliminarJefe(){
 			nombreJefe = null;
 			legajoJefe = 0;			
 		}
