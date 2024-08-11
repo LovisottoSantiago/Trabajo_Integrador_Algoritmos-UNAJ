@@ -11,12 +11,16 @@
       "RelativeMoniker": "D:0:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|solutionrelative:integrador\\empresa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|c:\\users\\lovidev\\documents\\github\\trabajo_integrador_algoritmos-unaj\\trabajointegrador\\integrador\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|solutionrelative:integrador\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|C:\\Users\\Lovidev\\Documents\\GitHub\\Trabajo_Integrador_Algoritmos-UNAJ\\TrabajoIntegrador\\integrador\\obra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|solutionrelative:integrador\\obra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|c:\\users\\lovidev\\documents\\github\\trabajo_integrador_algoritmos-unaj\\trabajointegrador\\integrador\\obra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|solutionrelative:integrador\\obra.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:1:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|c:\\users\\lovidev\\documents\\github\\trabajo_integrador_algoritmos-unaj\\trabajointegrador\\integrador\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:1:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|solutionrelative:integrador\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:2:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|c:\\users\\lovidev\\documents\\github\\trabajo_integrador_algoritmos-unaj\\trabajointegrador\\integrador\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:2:0:{B9AFC383-B840-47D6-86D1-B1D6B0757772}|Integrador\\Integrador.csproj|solutionrelative:integrador\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +34,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "app.config",
               "DocumentMoniker": "C:\\Users\\Lovidev\\Documents\\GitHub\\Trabajo_Integrador_Algoritmos-UNAJ\\TrabajoIntegrador\\Integrador\\app.config",
               "RelativeDocumentMoniker": "Integrador\\app.config",
@@ -38,8 +42,7 @@
               "RelativeToolTip": "Integrador\\app.config",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-07-04T00:17:15.477Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-04T00:17:15.477Z"
             },
             {
               "$type": "Document",
@@ -49,7 +52,7 @@
               "RelativeDocumentMoniker": "Integrador\\Program.cs",
               "ToolTip": "C:\\Users\\Lovidev\\Documents\\GitHub\\Trabajo_Integrador_Algoritmos-UNAJ\\TrabajoIntegrador\\Integrador\\Program.cs",
               "RelativeToolTip": "Integrador\\Program.cs",
-              "ViewState": "AQIAALsAAAAAAAAAAAAgwOwAAAAWAAAA",
+              "ViewState": "AQIAANwAAAAAAAAAAAAgwOwAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-04T00:16:50.524Z",
               "EditorCaption": ""
@@ -57,6 +60,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "app.config",
+              "DocumentMoniker": "C:\\Users\\Lovidev\\Documents\\GitHub\\Trabajo_Integrador_Algoritmos-UNAJ\\TrabajoIntegrador\\Integrador\\app.config",
+              "RelativeDocumentMoniker": "Integrador\\app.config",
+              "ToolTip": "C:\\Users\\Lovidev\\Documents\\GitHub\\Trabajo_Integrador_Algoritmos-UNAJ\\TrabajoIntegrador\\Integrador\\app.config",
+              "RelativeToolTip": "Integrador\\app.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-07-04T00:17:15.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "obra.cs",
               "DocumentMoniker": "C:\\Users\\Lovidev\\Documents\\GitHub\\Trabajo_Integrador_Algoritmos-UNAJ\\TrabajoIntegrador\\Integrador\\obra.cs",
               "RelativeDocumentMoniker": "Integrador\\obra.cs",
@@ -64,8 +79,7 @@
               "RelativeToolTip": "Integrador\\obra.cs",
               "ViewState": "AQIAACYAAAAAAAAAAAAwwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-04T00:08:14.861Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-04T00:08:14.861Z"
             },
             {
               "$type": "Document",
@@ -77,8 +91,7 @@
               "RelativeToolTip": "Integrador\\empresa.cs",
               "ViewState": "AQIAAA0AAAAAAAAAAAAgwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-04T00:08:05.486Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-04T00:08:05.486Z"
             }
           ]
         }
